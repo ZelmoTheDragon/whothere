@@ -5,7 +5,44 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
           
     <modelVersion>4.0.0</modelVersion>
-          
+        
+    <description>Who There</description>
+    <inceptionYear>2020</inceptionYear>
+    <url>https://github.com/ZelmoTheDragon/whothere</url>
+    
+    <licenses>
+        <license>
+            <name>CeCILL 2.1</name>
+            <url>http://cecill.info/licences/Licence_CeCILL_V2.1-en.txt</url>
+            <comments>Licence française de logiciel libre</comments>
+        </license>
+    </licenses>
+    
+    <organization>
+        <name>GitHub</name>
+        <url>https://github.com</url>
+    </organization>
+    
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/ZelmoTheDragon/whothere/issues</url>
+    </issueManagement>
+    
+    <developers>
+        <developer>
+            <id>ZelmoTheDragon</id>
+            <name>MOSELLE Maxime</name>
+            <email>maximemoselle@gmail.com</email>
+            <organization>GitHub</organization>
+            <organizationUrl>https://github.com</organizationUrl>
+            <timezone>Europe/Paris</timezone>
+            <url>https://github.com/ZelmoTheDragon</url>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+              
     <groupId>com.github.zelmothedragon</groupId>
     <artifactId>whothere</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -17,7 +54,6 @@
         <module>whothere-war</module>
     </modules>
     
-          
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         
@@ -90,6 +126,16 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.1.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
                     <version>3.1.0</version>
                 </plugin>
             </plugins>
