@@ -62,6 +62,13 @@
         <version.payara>5.2020.4</version.payara>
         
         <version.eclipselink>2.7.6</version.eclipselink>
+        
+        <!-- TEST -->
+        <version.jacoco>0.8.6</version.jacoco>
+        
+        
+        <jacoco.agent.path>${project.build.directory}/org.jacoco.agent-${version.jacoco}.jar</jacoco.agent.path>
+        <jacoco.option>-javaagent:${jacoco.agent.path}=destfile=${project.build.directory}/jacoco/jacoco-it.exec</jacoco.option>
     </properties>
           
     <dependencyManagement>
@@ -95,29 +102,20 @@
             -->
             <!-- JUnit -->
             <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-api</artifactId>
-                <version>5.7.0</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-engine</artifactId>
-                <version>5.7.0</version>
-                <scope>test</scope>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.13</version>
             </dependency>
             <!-- Jacoco -->
             <dependency>
                 <groupId>org.jacoco</groupId>
                 <artifactId>org.jacoco.core</artifactId>
-                <version>0.8.6</version>
-                <scope>test</scope>
+                <version>${version.jacoco}</version>
             </dependency>
             <dependency>
                 <groupId>org.jacoco</groupId>
                 <artifactId>org.jacoco.agent</artifactId>
-                <version>0.8.6</version>
-                <scope>test</scope>
+                <version>${version.jacoco}</version>
             </dependency>
             <!-- Arquillian -->
             <dependency>
@@ -125,46 +123,39 @@
                 <artifactId>arquillian-bom</artifactId>
                 <version>1.6.0.Final</version>
                 <type>pom</type>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.junit</groupId>
                 <artifactId>arquillian-junit-container</artifactId>
                 <version>1.6.0.Final</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.graphene</groupId>
                 <artifactId>graphene-webdriver</artifactId>
                 <version>2.3.2</version>
                 <type>pom</type>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.extension</groupId>
                 <artifactId>arquillian-drone-bom</artifactId>
                 <version>2.5.1</version>
                 <type>pom</type>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.extension</groupId>
                 <artifactId>arquillian-warp-jsf</artifactId>
                 <version>1.0.0</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.extension</groupId>
                 <artifactId>arquillian-jacoco</artifactId>
                 <version>1.1.0</version>
                 <type>pom</type>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.extension</groupId>
                 <artifactId>arquillian-jacoco-with-asm</artifactId>
                 <version>1.1.0</version>
-                <scope>test</scope>
             </dependency>   
             <!-- Shrinkwrap resolver -->
             <dependency>
@@ -172,32 +163,27 @@
                 <artifactId>shrinkwrap-resolver-bom</artifactId>
                 <version>3.1.4</version>
                 <type>pom</type>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.shrinkwrap.resolver</groupId>
                 <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
                 <version>3.1.4</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.shrinkwrap.resolver</groupId>
                 <artifactId>shrinkwrap-resolver-impl-maven-archive</artifactId>
                 <version>3.1.4</version>
-                <scope>test</scope>
             </dependency>    
             <!-- Payara -->
             <dependency>
                 <groupId>fish.payara.arquillian</groupId>
                 <artifactId>arquillian-payara-micro-managed</artifactId>
                 <version>2.3.1</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>fish.payara.extras</groupId>
                 <artifactId>payara-micro</artifactId>
                 <version>${version.payara}</version>
-                <scope>test</scope>
             </dependency>
             
         </dependencies>
@@ -214,7 +200,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.5</version>
+                    <version>${version.jacoco}</version>
                 </plugin>
                 
                 <!-- Extensions par défaut -->
@@ -267,6 +253,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.2</version>
                 </plugin>
             </plugins>
         </pluginManagement>
