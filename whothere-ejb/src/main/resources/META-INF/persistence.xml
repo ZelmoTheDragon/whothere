@@ -6,6 +6,20 @@
     version="2.2">
     
     <persistence-unit name="whothere-pu">
+        <jta-data-source>java:app/jdbc/WhoThereDS</jta-data-source>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
         
+        <properties>
+            <property name="javax.persistence.schema-generation.database.action" value="create" /> 
+            <property name="javax.persistence.schema-generation.scripts.create-source"  value="metadata" /> 
+            <property name="javax.persistence.schema-generation.scripts.drop-source" value="metadata" /> 
+                 
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+            <property name="eclipselink.logging.parameters" value="TRUE"/>
+            
+        </properties>
     </persistence-unit>
 </persistence>
