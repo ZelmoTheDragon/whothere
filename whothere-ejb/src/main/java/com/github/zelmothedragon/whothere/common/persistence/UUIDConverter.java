@@ -6,9 +6,9 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 /**
- * Convertisseur d'attribut pour le type <code>java.util.UUID</code> vers
- * <code>java.lang.String</code> et vice versa pour la base de données. Cette
- * classe est invoquée automatiquement par <i>JPA</i>.
+ * Convertisseur d'attribut pour le type {@link java.util.UUID} vers
+ * {@link java.lang.String} et vice versa pour la base de données. Cette classe
+ * est invoquée automatiquement par <i>JPA</i>.
  *
  * @author MOSELLE Maxime
  */
@@ -34,12 +34,12 @@ public class UUIDConverter implements AttributeConverter<UUID, String> {
     }
 
     /**
-     * Convertir un attribut de type <code>java.util.UUID</code> vers un type
-     * <code>java.lang.String</code>.
+     * Convertir un attribut de type {@link java.util.UUID} vers un type
+     * {@link java.lang.String}.
      *
      * @param attribute Attribut d'une entité persistante
-     * @return La représentation textuelle d'un type <code>java.util.UUID</code>
-     * ou <code>null</code>.
+     * @return La représentation textuelle d'un type {@link java.util.UUID} ou
+     * {@code null}
      */
     @Override
     public String convertToDatabaseColumn(final UUID attribute) {
@@ -53,12 +53,12 @@ public class UUIDConverter implements AttributeConverter<UUID, String> {
     }
 
     /**
-     * Convertir une colonne de type assignable à <code>java.lang.String</code>
-     * vers un type <code>java.util.UUID</code>.
+     * Convertir une colonne de type assignable à {@link java.lang.String} vers
+     * un type {@link java.util.UUID}.
      *
      * @param dbData Colonne d'une table en base de données
-     * @return La représentation d'un type <code>java.util.UUID</code> ou
-     * <code>null</code>.
+     * @return La représentation d'un type {@link java.util.UUID} ou
+     * {@code null}
      */
     @Override
     public UUID convertToEntityAttribute(final String dbData) {

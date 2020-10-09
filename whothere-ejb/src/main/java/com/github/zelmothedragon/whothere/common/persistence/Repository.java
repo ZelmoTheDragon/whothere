@@ -5,7 +5,7 @@ import java.util.Optional;
 
 /**
  * Entrepôt de données. Le nommage des méthodes est inspirées de
- * <code>java.util.Collection</code>.
+ * {@link java.util.Collection}.
  *
  * @param <E> Type d'entité persistante
  * @param <K> Type de l'identifiant unique
@@ -17,25 +17,25 @@ public interface Repository<E extends Identifiable<K>, K> {
      * Vérifier l'existence d'une entité.
      *
      * @param entity Entité persistante
-     * @return La valeur <code>true</code> si l'entité existe, sinon la valeur
-     * <code>false</code> est retournée
+     * @return La valeur {@code true} si l'entité existe, sinon la valeur
+     * {@code false} est retournée
      */
     boolean contains(E entity);
 
     /**
      * Vérifier l'existence d'une collection d'entités.
      *
-     * @param entities Collection d'entités
-     * @return La valeur <code>true</code> si toute les entités de la collection
-     * existe, sinon la valeur <code>false</code> est retournée
+     * @param entities Collection d'entités persistantes
+     * @return La valeur {@code true} si toute les entités de la collection
+     * existe, sinon la valeur {@code false} est retournée
      */
     boolean containsAll(Collection<E> entities);
 
     /**
      * Indiquer si aucune occurence existe.
      *
-     * @return La valeur <code>true</code> si aucune occurrence existe, sinon la
-     * valeur <code>false</code> est retournée
+     * @return La valeur {@code true} si aucune occurrence existe, sinon la
+     * valeur {@code false} est retournée
      */
     boolean isEmpty();
 
@@ -50,7 +50,7 @@ public interface Repository<E extends Identifiable<K>, K> {
      * Ajouter une nouvelle entité. Si l'entité existe déjà, il sera mise à
      * jour.
      *
-     * @param entity Entité persistante.
+     * @param entity Entité persistante
      * @return L'entité persisté
      */
     E add(E entity);
@@ -59,7 +59,7 @@ public interface Repository<E extends Identifiable<K>, K> {
      * Ajouter une nouvelle collection d'entités.Si les entités existent déjà,
      * il seront mise à jour.
      *
-     * @param entities
+     * @param entities Collection d'entités persistantes
      * @return Les entités persistées
      */
     Collection<E> addAll(Collection<E> entities);
@@ -67,14 +67,14 @@ public interface Repository<E extends Identifiable<K>, K> {
     /**
      * Supprimer une entité.
      *
-     * @param entity Entité persistante à supprimer
+     * @param entity Entité persistante
      */
     void remove(E entity);
 
     /**
      * Supprimer une collection d'entité.
      *
-     * @param entities Collection d'entités persistantes à supprimer
+     * @param entities Collection d'entités persistantes
      */
     void removeAll(Collection<E> entities);
 

@@ -39,7 +39,7 @@ public class LocalIdentityStore {
             + "WHERE a.username = ? AND a.locked = FALSE;";
 
     /**
-     * Ressource de la base de données. Voir 'persistence.xml'.
+     * Ressource de la base de données. Voir {@code persistence.xml}.
      */
     static final String DATA_SOURCE = "java:app/jdbc/WhoThereDS";
 

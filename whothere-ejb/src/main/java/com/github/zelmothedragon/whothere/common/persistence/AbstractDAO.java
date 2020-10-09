@@ -31,52 +31,52 @@ public abstract class AbstractDAO<E extends Identifiable<K>, K> implements Repos
 
     @Override
     public boolean contains(final E entity) {
-        return JPA.contains(em, entity);
+        return JPA.contains(entity);
     }
 
     @Override
     public boolean containsAll(final Collection<E> entities) {
-        return JPA.containsAll(em, entities);
+        return JPA.containsAll(entities);
     }
 
     @Override
     public boolean isEmpty() {
-        return JPA.isEmpty(em, getEntityClass());
+        return JPA.isEmpty(getEntityClass());
     }
 
     @Override
     public long size() {
-        return JPA.size(em, getEntityClass());
+        return JPA.size(getEntityClass());
     }
 
     @Override
     public E add(final E entity) {
-        return JPA.add(em, entity);
+        return JPA.add(entity);
     }
 
     @Override
     public Collection<E> addAll(final Collection<E> entities) {
-        return JPA.addAll(em, entities);
+        return JPA.addAll(entities);
     }
 
     @Override
     public void remove(final E entity) {
-        JPA.remove(em, entity);
+        JPA.remove(entity);
     }
 
     @Override
     public void removeAll(final Collection<E> entities) {
-        JPA.removeAll(em, entities);
+        JPA.removeAll(entities);
     }
 
     @Override
     public Optional<E> get(final K id) {
-        return JPA.get(em, getEntityClass(), id);
+        return JPA.get(getEntityClass(), id);
     }
 
     @Override
     public Collection<E> get() {
-        return JPA.get(em, getEntityClass());
+        return JPA.get(getEntityClass());
     }
 
     /**

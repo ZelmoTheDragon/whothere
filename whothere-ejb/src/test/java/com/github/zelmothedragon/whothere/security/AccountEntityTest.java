@@ -1,9 +1,9 @@
 package com.github.zelmothedragon.whothere.security;
 
+import com.github.zelmothedragon.whothere.Archive;
 import javax.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,6 +17,9 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class AccountEntityTest {
 
+    /**
+     * Instance d'entité de test.
+     */
     @Inject
     private AccountEntity instance;
 
@@ -25,32 +28,21 @@ public class AccountEntityTest {
      * de test.
      */
     public AccountEntityTest() {
-        // RAS
+        // Ne pas appeler explicitement.
     }
 
     /**
-     * Construire une archive à déployer sur le serveur d'application embarqué.
-     * Cette archive comporte les classes et la configuration necessaire pour
-     * l'éxecution des tests de cette classe.
+     * Initialisation pour <i>Arquillian</i>.
      *
-     * @return Archive à déployer
+     * @return Une archive à déployer
      */
     @Deployment
     public static WebArchive createDeployment() {
-        var archive = ShrinkWrap
-                .create(WebArchive.class)
-                .addAsWebInfResource("beans.xml")
-                .addAsWebInfResource("web.xml")
-                .addAsWebInfResource("payara-resources.xml")
-                .addAsResource("persistence.xml", "META-INF/persistence.xml")
-                .addPackages(true, "com.github.zelmothedragon.whothere");
-
-        System.out.println(archive.toString(true));
-        return archive;
+        return Archive.createDeployment();
     }
 
     /**
-     * Tester l'injection CDI d'une entité.
+     * Tester l'injection CDI.
      */
     @Test
     public void injectEntity() {
