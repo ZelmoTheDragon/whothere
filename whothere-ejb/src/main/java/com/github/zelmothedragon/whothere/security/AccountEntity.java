@@ -15,6 +15,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -42,6 +43,7 @@ public class AccountEntity extends AbstractEntity {
     /**
      * Identifiant de connexion.
      */
+    @Size(min = 2, max = 255)
     @NotBlank
     @JsonbProperty(value = "username", nillable = false)
     @Column(name = "username", unique = true)
@@ -69,7 +71,11 @@ public class AccountEntity extends AbstractEntity {
     @NotNull
     @JsonbProperty(value = "roles", nillable = false)
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"))
+    @CollectionTable(
+            name = "account_role",
+            joinColumns = @JoinColumn(name = "account_id"),
+            foreignKey = @ForeignKey(name = "fk_account_role")
+    )
     @Column(name = "role_name", nullable = false)
     private Set<@NotEmpty @Size(max = 255) String> roles;
 
@@ -78,7 +84,6 @@ public class AccountEntity extends AbstractEntity {
      * de <i>Jakarta EE</i>.
      */
     public AccountEntity() {
-        super();
         this.roles = new HashSet<>();
         // Ne pas appeler explicitement.
     }

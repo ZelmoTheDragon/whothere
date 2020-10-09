@@ -97,6 +97,9 @@ public abstract class AbstractEntity implements Identifiable<UUID>, Serializable
         );
     }
 
+    // ------------------------------
+    // Accesseurs & Mutateurs
+    // ------------------------------
     @Override
     public UUID getId() {
         return id;
