@@ -9,9 +9,12 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -78,6 +81,23 @@ public class Agent extends AbstractEntity {
     private String shortRank;
 
     /**
+     * Numéro de téléphone professionel.
+     */
+    @Size(min = 1, max = 255)
+    @NotBlank
+    @JsonbProperty(value = "phoneNumber", nillable = false)
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
+
+    /**
+     * Genre de l'agent.
+     */
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender", nullable = false)
+    private Gender gender;
+
+    /**
      * Constructeur par défaut. Requis pour le fonctionnement des technologies
      * de <i>Jakarta EE</i>.
      */
@@ -126,6 +146,22 @@ public class Agent extends AbstractEntity {
 
     public void setShortRank(String shortRank) {
         this.shortRank = shortRank;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
 }
