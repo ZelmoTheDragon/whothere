@@ -23,6 +23,15 @@ public interface Repository<E extends Identifiable<K>, K> {
     boolean contains(E entity);
 
     /**
+     * Vérifier l'existence d'une entité en fonction de son identifiant unique.
+     *
+     * @param id Identifiant unique
+     * @return La valeur {@code true} si l'entité existe, sinon la valeur
+     * {@code false} est retournée
+     */
+    boolean contains(K id);
+
+    /**
      * Vérifier l'existence d'une collection d'entités.
      *
      * @param entities Collection d'entités persistantes
@@ -47,11 +56,11 @@ public interface Repository<E extends Identifiable<K>, K> {
     long size();
 
     /**
-     * Ajouter une nouvelle entité. Si l'entité existe déjà, il sera mise à
+     * Ajouter une nouvelle entité. Si l'entité existe déjà, elle sera mise à
      * jour.
      *
      * @param entity Entité persistante
-     * @return L'entité persisté
+     * @return L'entité persistée
      */
     E add(E entity);
 
@@ -70,6 +79,13 @@ public interface Repository<E extends Identifiable<K>, K> {
      * @param entity Entité persistante
      */
     void remove(E entity);
+
+    /**
+     * Supprimer une entité en fonction de son identifiant.
+     *
+     * @param id Identifiant unique.
+     */
+    void remove(K id);
 
     /**
      * Supprimer une collection d'entité.

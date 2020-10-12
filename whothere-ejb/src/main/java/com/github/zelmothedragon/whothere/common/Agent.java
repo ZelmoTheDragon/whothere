@@ -81,7 +81,7 @@ public class Agent extends AbstractEntity {
     private String shortRank;
 
     /**
-     * Numéro de téléphone professionel.
+     * Numéro de téléphone professionnel.
      */
     @Size(min = 1, max = 255)
     @NotBlank

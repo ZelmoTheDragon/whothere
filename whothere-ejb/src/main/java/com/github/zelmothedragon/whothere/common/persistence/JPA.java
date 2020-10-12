@@ -30,8 +30,8 @@ public final class JPA {
      * {@code false} est retournée
      */
     public static boolean contains(final Object entity) {
+        final boolean exists;
         var em = CDI.current().select(EntityManager.class).get();
-        boolean exists;
         var entityClass = entity.getClass();
         if (em.contains(entity)) {
             exists = true;
@@ -48,6 +48,19 @@ public final class JPA {
             exists = result == 1L;
         }
         return exists;
+    }
+
+    /**
+     * @see Repository#contains(Object)
+     * @param entityClass Classe de l'entité persistante
+     * @param id Identifiant unique
+     * @return La valeur {@code true} si l'entité existe, sinon la valeur
+     * {@code false} est retournée
+     */
+    public static boolean contains(final Class<?> entityClass, final Object id) {
+        // TODO:
+        // Méthode générique à implémenter
+        return false;
     }
 
     /**
@@ -128,6 +141,18 @@ public final class JPA {
     }
 
     /**
+     * @see Repository#remove(Object)
+     * @param entityClass Classe de l'entité persistante
+     * @param id Identifiant unique
+     */
+    public static void remove(final Class<?> entityClass, Object id) {
+        var option = get(entityClass, id);
+        if (option.isPresent()) {
+            remove(option.get());
+        }
+    }
+
+    /**
      * @see Repository#removeAll(Collection)
      * @param entities Collection d'entités persistantes
      */
@@ -200,4 +225,5 @@ public final class JPA {
                 .getId(idClass)
                 .getName();
     }
+
 }

@@ -1,5 +1,6 @@
 package com.github.zelmothedragon.whothere.common.persistence;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.Optional;
@@ -7,13 +8,19 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 /**
- * Classe mère pour les opérations de persistance générique.
+ * Classe mère pour les opérations de persistances génériques.
  *
  * @param <E> Type d'entité persistante
  * @param <K> Type de la clef primaire
  * @author MOSELLE Maxime
  */
-public abstract class AbstractDAO<E extends Identifiable<K>, K> implements Repository<E, K> {
+public abstract class AbstractDAO<E extends Identifiable<K>, K>
+        implements Repository<E, K>, Serializable {
+
+    /**
+     * Numéro de série.
+     */
+    private static final long serialVersionUID = 1L;
 
     /**
      * Gestionnaire d'entité.
@@ -32,6 +39,11 @@ public abstract class AbstractDAO<E extends Identifiable<K>, K> implements Repos
     @Override
     public boolean contains(final E entity) {
         return JPA.contains(entity);
+    }
+
+    @Override
+    public boolean contains(final K id) {
+        return JPA.contains(getEntityClass(), id);
     }
 
     @Override
@@ -62,6 +74,11 @@ public abstract class AbstractDAO<E extends Identifiable<K>, K> implements Repos
     @Override
     public void remove(final E entity) {
         JPA.remove(entity);
+    }
+
+    @Override
+    public void remove(K id) {
+        JPA.remove(getEntityClass(), id);
     }
 
     @Override
