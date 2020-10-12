@@ -33,7 +33,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "account")
 @Access(AccessType.FIELD)
-public class AccountEntity extends AbstractEntity {
+public class Account extends AbstractEntity {
 
     /**
      * Numéro de série.
@@ -83,7 +83,7 @@ public class AccountEntity extends AbstractEntity {
      * Constructeur par défaut. Requis pour le fonctionnement des technologies
      * de <i>Jakarta EE</i>.
      */
-    public AccountEntity() {
+    public Account() {
         this.roles = new HashSet<>();
         // Ne pas appeler explicitement.
     }

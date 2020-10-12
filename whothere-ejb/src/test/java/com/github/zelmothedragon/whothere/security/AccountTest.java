@@ -15,19 +15,19 @@ import org.junit.runner.RunWith;
  * @author MOSELLE Maxime
  */
 @RunWith(Arquillian.class)
-public class AccountEntityTest {
+public class AccountTest {
 
     /**
      * Instance d'entité de test.
      */
     @Inject
-    private AccountEntity instance;
+    private Account instance;
 
     /**
      * Constructeur par défaut. Requis pour le fonctionnement de l'environnement
      * de test.
      */
-    public AccountEntityTest() {
+    public AccountTest() {
         // Ne pas appeler explicitement.
     }
 
