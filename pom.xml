@@ -62,6 +62,7 @@
         <version.payara>5.2020.4</version.payara>
         
         <version.eclipselink>2.7.6</version.eclipselink>
+        <version.primefaces>8.0</version.primefaces>
         
         <!-- TEST -->
         <version.jacoco>0.8.6</version.jacoco>
@@ -89,10 +90,21 @@
                 <artifactId>javaee-web-api</artifactId>
                 <version>${version.jakarta}</version>
             </dependency>
+            
             <dependency>
                 <groupId>org.eclipse.persistence</groupId>
                 <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
                 <version>${version.eclipselink}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.primefaces</groupId>
+                <artifactId>primefaces</artifactId>
+                <version>${version.primefaces}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.primefaces.extensions</groupId>
+                <artifactId>primefaces-extensions</artifactId>
+                <version>${version.primefaces}</version>
             </dependency>
             
             <!-- 
