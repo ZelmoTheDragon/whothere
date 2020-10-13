@@ -35,7 +35,7 @@
         <param-value>true</param-value>
     </context-param>
     
-    <!-- Résolution de l'injection CDI. (Utile pour certain serveur JEE) -->
+    <!-- Résolution de l'injection CDI. (Utile pour certain serveur Jakarta EE) -->
     <context-param>
         <param-name>javax.faces.ENABLE_CDI_RESOLVER_CHAIN</param-name>
         <param-value>true</param-value>

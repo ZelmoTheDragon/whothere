@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whothere.view;
+package com.github.zelmothedragon.whothere.client.view;
 
 import java.io.Serializable;
 import java.util.Locale;
@@ -26,8 +26,8 @@ public class Internationalization implements Serializable {
     private Locale currentLocale;
 
     /**
-     * Constructeur d'injection. Requis pour le fonctionnement des technologies
-     * de Java EE.
+     * Constructeur par défaut. Requis pour le fonctionnement des technologies
+     * de <i>Jakarta EE</i>.
      */
     public Internationalization() {
         this.currentLocale = Locale.FRENCH;

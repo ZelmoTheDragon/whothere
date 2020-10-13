@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whothere.view;
+package com.github.zelmothedragon.whothere.client.view;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
