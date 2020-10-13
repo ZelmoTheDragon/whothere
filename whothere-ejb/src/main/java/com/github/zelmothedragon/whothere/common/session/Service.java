@@ -3,7 +3,6 @@ package com.github.zelmothedragon.whothere.common.session;
 import com.github.zelmothedragon.whothere.common.persistence.Identifiable;
 import java.util.Collection;
 import java.util.Optional;
-import javax.ejb.Local;
 
 /**
  * Service métier commun.
@@ -12,7 +11,6 @@ import javax.ejb.Local;
  * @param <K> Type d'identifiant unique
  * @author MOSELLE Maxime
  */
-@Local
 public interface Service<E extends Identifiable<K>, K> {
 
     /**

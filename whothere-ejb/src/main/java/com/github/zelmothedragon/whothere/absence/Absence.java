@@ -8,6 +8,8 @@ import javax.json.bind.annotation.JsonbDateFormat;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.json.bind.config.PropertyOrderStrategy;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,8 +31,11 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(
         name = "absence",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"agent_id", "state_of_absence_id", "start_date", "end_date"})
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {"agent_id", "state_of_absence_id", "start_date", "end_date"}
+        )
 )
+@Access(AccessType.FIELD)
 public class Absence extends AbstractEntity {
 
     /**
@@ -44,7 +49,7 @@ public class Absence extends AbstractEntity {
     @NotNull
     @JsonbProperty(value = "agent", nillable = false)
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "agent_id", nullable = false, foreignKey = @ForeignKey(name = "fk_absence_agent"))
+    @JoinColumn(name = "agent_id", nullable = false)
     private Agent agent;
 
     /**
@@ -53,7 +58,7 @@ public class Absence extends AbstractEntity {
     @NotNull
     @JsonbProperty(value = "state", nillable = false)
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "state_of_absence_id", nullable = false, foreignKey = @ForeignKey(name = "fk_absence_state"))
+    @JoinColumn(name = "state_of_absence_id", nullable = false)
     private State state;
 
     /**

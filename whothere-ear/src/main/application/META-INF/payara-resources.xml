@@ -19,7 +19,7 @@
         <!-- Base de données embarquée en mémoire -->
         <property name="user" value="sa" />
         <property name="password" value="sa" />
-        <property name="url" value="jdbc:h2:mem:whothere;DB_CLOSE_DELAY=-1" />
+        <property name="url" value="jdbc:h2://${com.sun.aas.instanceRoot}/data/whothere;AUTO_SERVER=true" />
     </jdbc-connection-pool>
     
 </resources>

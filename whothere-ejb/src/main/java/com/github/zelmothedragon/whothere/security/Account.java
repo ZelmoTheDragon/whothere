@@ -73,8 +73,7 @@ public class Account extends AbstractEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
             name = "account_role",
-            joinColumns = @JoinColumn(name = "account_id"),
-            foreignKey = @ForeignKey(name = "fk_account_role")
+            joinColumns = @JoinColumn(name = "account_id", nullable = false)
     )
     @Column(name = "role_name", nullable = false)
     private Set<@NotEmpty @Size(max = 255) String> roles;

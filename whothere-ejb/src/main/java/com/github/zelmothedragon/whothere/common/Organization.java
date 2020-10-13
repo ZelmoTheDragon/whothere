@@ -68,7 +68,7 @@ public class Organization extends AbstractEntity {
      */
     @JsonbTransient
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "organization_parent_id", foreignKey = @ForeignKey(name = "fk_organization_parent"))
+    @JoinColumn(name = "organization_parent_id")
     private Organization parent;
 
     /**
