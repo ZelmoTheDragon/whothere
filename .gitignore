@@ -6,6 +6,7 @@
 # NetBeans IDE
 **/nb-configuration.xml
 **/faces-config.NavData
+**/nbactions.xml
 
 # IntelliJ IDEA
 **/.idea
