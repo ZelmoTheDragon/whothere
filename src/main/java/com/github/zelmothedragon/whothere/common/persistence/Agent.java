@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whothere.common;
+package com.github.zelmothedragon.whothere.common.persistence;
 
 import com.github.zelmothedragon.whothere.common.persistence.AbstractEntity;
 import javax.enterprise.context.Dependent;

@@ -56,6 +56,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <quarkus.platform.version>1.8.3.Final</quarkus.platform.version>
+        <hibernate-jpamodelgen.version>5.4.21.Final</hibernate-jpamodelgen.version>
         
     </properties>
   
@@ -67,6 +68,13 @@
                 <version>${quarkus.platform.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-jpamodelgen</artifactId>
+                <version>${hibernate-jpamodelgen.version}</version>
+                <scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -109,11 +117,6 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-hibernate-orm-panache</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-narayana-jta</artifactId>
             <scope>compile</scope>
         </dependency>
@@ -121,6 +124,26 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-h2</artifactId>
             <scope>compile</scope>
+        </dependency>
+        
+        <!-- Web -->
+        
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-webjars-locator</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>materializecss</artifactId>
+            <scope>compile</scope>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>material-icons</artifactId>
+            <scope>compile</scope>
+            <version>0.3.1</version>
         </dependency>
 
         <!--
@@ -160,6 +183,16 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
+                <configuration>
+                    <!-- JPA meta modèle -->
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.hibernate</groupId>
+                            <artifactId>hibernate-jpamodelgen</artifactId>
+                            <version>${hibernate-jpamodelgen.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
             </plugin>
             
             <plugin>

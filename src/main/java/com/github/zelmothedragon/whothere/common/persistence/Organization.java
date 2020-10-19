@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whothere.common;
+package com.github.zelmothedragon.whothere.common.persistence;
 
 import com.github.zelmothedragon.whothere.common.persistence.AbstractEntity;
 import javax.enterprise.context.Dependent;
@@ -12,6 +12,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;

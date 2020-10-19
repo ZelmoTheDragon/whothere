@@ -1,5 +1,6 @@
 package com.github.zelmothedragon.whothere.common.service;
 
+import com.github.zelmothedragon.whothere.common.persistence.Pagination;
 import com.github.zelmothedragon.whothere.common.persistence.Identifiable;
 import com.github.zelmothedragon.whothere.common.persistence.JPA;
 import java.util.Collection;
@@ -28,8 +29,8 @@ public class CommonService {
         return JPA.get(entityClass, id);
     }
 
-    public Collection<? extends Identifiable<?>> find(final Class<? extends Identifiable<?>> entityClass) {
-        return JPA.get(entityClass);
+    public Collection<? extends Identifiable<?>> find(final Pagination pagination) {
+        return JPA.get(pagination);
     }
 
     public Identifiable<?> save(final Identifiable<?> entity) {

@@ -1,5 +1,6 @@
 package com.github.zelmothedragon.whothere.common.persistence;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -7,6 +8,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.enterprise.inject.spi.CDI;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.metamodel.SingularAttribute;
 
 /**
  * Utilitaire <i>JPA</i> pour les opérations de base sur les entités
@@ -192,6 +195,35 @@ public final class JPA {
         var q = cb.createQuery(entityClass);
         q.from(entityClass);
         return em.createQuery(q).getResultList();
+    }
+
+    public static <E> List<E> get(final Pagination pagination) {
+        var em = CDI.current().select(EntityManager.class).get();
+        Class<E> entityClass = (Class<E>) pagination.getEntityClass();
+        var cb = em.getCriteriaBuilder();
+        var q = cb.createQuery(entityClass);
+        var root = q.from(entityClass);
+
+        if (Objects.nonNull(pagination.getKeyword())) {
+            String search = String.format("%%%s%%", pagination.getKeyword().trim().toLowerCase());
+
+            List<Predicate> restrictions = em
+                    .getMetamodel()
+                    .entity(entityClass)
+                    .getAttributes()
+                    .stream()
+                    .filter(a -> Objects.equals(a.getJavaType(), String.class))
+                    .map(a -> cb.like(cb.lower(root.get(a.getName())), search))
+                    .collect(Collectors.toList());
+
+            q.where(cb.or(restrictions.toArray(new Predicate[restrictions.size()])));
+        }
+
+        return em
+                .createQuery(q)
+                .setFirstResult(pagination.getIndex())
+                .setMaxResults(pagination.getPageSize())
+                .getResultList();
     }
 
     /**
