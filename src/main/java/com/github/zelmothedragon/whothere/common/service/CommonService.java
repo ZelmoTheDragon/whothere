@@ -25,21 +25,32 @@ public class CommonService {
         // Ne pas appeler explicitement.
     }
 
-    public Optional<? extends Identifiable<?>> find(
-            final Class<? extends Identifiable<?>> entityClass,
+    public <E extends Identifiable<?>> Optional<E> find(
+            final Class<E> entityClass,
             final Object id) {
 
         return JPA.get(entityClass, id);
     }
 
-    public Collection<? extends Identifiable<?>> find(
-            final Class<? extends Identifiable<?>> entityClass,
+    public <E extends Identifiable<?>> Collection<E> find(
+            final Class<E> entityClass,
             final Pagination pagination) {
 
         return JPA.get(entityClass, pagination);
     }
 
-    public Identifiable<?> save(final Identifiable<?> entity) {
+    public boolean exists(final Identifiable<?> entity) {
+        return JPA.contains(entity);
+    }
+
+    public boolean exists(
+            final Class<? extends Identifiable<?>> entityClass,
+            final Object id) {
+
+        return JPA.contains(entityClass, id);
+    }
+
+    public <E extends Identifiable<?>> E save(final E entity) {
         entity.checkId();
         return JPA.add(entity);
     }
@@ -52,7 +63,8 @@ public class CommonService {
             final Class<? extends Identifiable<?>> entityClass,
             final Object id) {
 
-        JPA.remove(id);
+        var entity = JPA.get(entityClass, id);
+        entity.ifPresent(e -> JPA.remove(e));
     }
 
 }

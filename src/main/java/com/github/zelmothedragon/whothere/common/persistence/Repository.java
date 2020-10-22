@@ -69,7 +69,7 @@ public interface Repository<E extends Identifiable<K>, K> {
      * il seront mise à jour.
      *
      * @param entities Collection d'entités persistantes
-     * @return Les entités persistées
+     * @return Une collection d'entités persistées
      */
     Collection<E> addAll(Collection<E> entities);
 
@@ -104,10 +104,17 @@ public interface Repository<E extends Identifiable<K>, K> {
     Optional<E> get(K id);
 
     /**
-     * Chercher toutes les entités enregistrés.
+     * Rechercher toutes les entités enregistrés.
      *
-     * @return Une liste des entités persistantes
+     * @return Une collection des entités persistantes
      */
     Collection<E> get();
+
+    /**
+     * Rechercher des entités enregistrés avec un critère de pagination.
+     * @param pagination Critère de pagination
+     * @return Une collection des entités persistantes
+     */
+    Collection<E> get(Pagination pagination);
 
 }

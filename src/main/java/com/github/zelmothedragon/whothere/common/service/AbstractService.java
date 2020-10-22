@@ -1,10 +1,12 @@
 package com.github.zelmothedragon.whothere.common.service;
 
 import com.github.zelmothedragon.whothere.common.persistence.Identifiable;
+import com.github.zelmothedragon.whothere.common.persistence.Pagination;
 import com.github.zelmothedragon.whothere.common.persistence.Repository;
+import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.Optional;
-
+import javax.enterprise.inject.spi.CDI;
 
 /**
  * Classe mère pour les opérations métiers génériques.
@@ -14,48 +16,64 @@ import java.util.Optional;
  * @param <K> Type d'identifiant unique
  * @author MOSELLE Maxime
  */
-public abstract class AbstractService<D extends Repository<E, K>, E extends Identifiable<K>, K>
+public abstract class AbstractService<E extends Identifiable<K>, K, D extends Repository<E, K>>
         implements Service<E, K> {
-
-    protected final D repository;
-
-    protected AbstractService(final D repository) {
-        this.repository = repository;
+    
+    private final CommonService service;
+    
+    protected AbstractService(final CommonService service) {
+        this.service = service;
+        
     }
-
+    
     @Override
     public Optional<E> find(final K id) {
-        return repository.get(id);
+        return service.find(getEntityClass(), id);
     }
-
+    
     @Override
     public Collection<E> find() {
-        return repository.get();
+        return null;
     }
-
+    
+    @Override
+    public Collection<E> find(final Pagination pagination) {
+        return service.find(getEntityClass(), pagination);
+    }
+    
     @Override
     public E save(final E entity) {
-        return repository.add(entity);
+        return service.save(entity);
     }
-
+    
     @Override
     public boolean exists(E entity) {
-        return repository.contains(entity);
+        return false;
     }
-
+    
     @Override
     public boolean exists(K id) {
-        return repository.contains(id);
+        return false;
     }
-
+    
     @Override
     public void remove(final E entity) {
-        repository.remove(entity);
+        service.remove(entity);
     }
-
+    
     @Override
     public void remove(K id) {
-        repository.remove(id);
+        service.remove(getEntityClass(), id);
     }
 
+    /**
+     * Obtenir la classe de l'entité métier.
+     *
+     * @return La classe de l'entité métier
+     */
+    protected Class<E> getEntityClass() {
+        var superClass = (ParameterizedType) getClass().getGenericSuperclass();
+        var entityClass = (Class<E>) superClass.getActualTypeArguments()[0];
+        return entityClass;
+    }
 }

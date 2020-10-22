@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.metamodel.Attribute;
+import javax.persistence.metamodel.SingularAttribute;
 
 /**
  * Utilitaire <i>JPA</i> pour les opérations de base sur les entités
@@ -32,7 +33,7 @@ public final class JPA {
      * @return La valeur {@code true} si l'entité existe, sinon la valeur
      * {@code false} est retournée
      */
-    public static boolean contains(final Object entity) {
+    public static boolean contains(final Identifiable<?> entity) {
         final boolean exists;
         var em = CDI.current().select(EntityManager.class).get();
         var entityClass = entity.getClass();
@@ -60,10 +61,31 @@ public final class JPA {
      * @return La valeur {@code true} si l'entité existe, sinon la valeur
      * {@code false} est retournée
      */
-    public static boolean contains(final Class<?> entityClass, final Object id) {
-        // TODO:
-        // Méthode générique à implémenter
-        return false;
+    public static boolean contains(final Class<? extends Identifiable<?>> entityClass, final Object id) {
+        boolean contains;
+        var option = get(entityClass, id);
+        if (option.isPresent()) {
+            contains = true;
+        } else {
+            var em = CDI.current().select(EntityManager.class).get();
+            var cb = em.getCriteriaBuilder();
+            var q = cb.createQuery(Long.class);
+            var root = q.from(entityClass);
+            q.select(cb.count(root));
+
+            em
+                    .getMetamodel()
+                    .entity(entityClass)
+                    .getSingularAttributes()
+                    .stream()
+                    .findFirst()
+                    .map(SingularAttribute::getName)
+                    .map(e -> cb.equal(root.get(e), id))
+                    .ifPresent(e -> q.where(e));
+
+            contains = em.createQuery(q).getSingleResult() == 1L;
+        }
+        return contains;
     }
 
     /**
@@ -82,7 +104,7 @@ public final class JPA {
      * @return La valeur {@code true} si aucune occurrence existe, sinon la
      * valeur {@code false} est retournée
      */
-    public static boolean isEmpty(final Class<?> entityClass) {
+    public static boolean isEmpty(final Class<? extends Identifiable<?>> entityClass) {
         return size(entityClass) == 0L;
     }
 
@@ -91,7 +113,7 @@ public final class JPA {
      * @param entityClass Classe de l'entité persistante
      * @return Le nombre d'occurrence
      */
-    public static long size(final Class<?> entityClass) {
+    public static long size(final Class<? extends Identifiable<?>> entityClass) {
         var em = CDI.current().select(EntityManager.class).get();
         var cb = em.getCriteriaBuilder();
         var q = cb.createQuery(Long.class);
@@ -106,7 +128,7 @@ public final class JPA {
      * @param entity Entité persistante
      * @return L'entité persisté
      */
-    public static <E> E add(final E entity) {
+    public static <E extends Identifiable<?>> E add(final E entity) {
         var em = CDI.current().select(EntityManager.class).get();
         E managedEntity;
         if (contains(entity)) {
@@ -124,7 +146,7 @@ public final class JPA {
      * @param entities Collection d'entités persistantes
      * @return Les entités persistées
      */
-    public static <E> List<E> addAll(final Collection<E> entities) {
+    public static <E extends Identifiable<?>> List<E> addAll(final Collection<E> entities) {
         return entities
                 .stream()
                 .map(JPA::add)
@@ -135,7 +157,7 @@ public final class JPA {
      * @see Repository#remove(Identifiable)
      * @param entity Entité persistante
      */
-    public static void remove(final Object entity) {
+    public static void remove(final Identifiable<?> entity) {
         var em = CDI.current().select(EntityManager.class).get();
         var entityClass = entity.getClass();
         var id = getIdentifier(em, entity);
@@ -148,7 +170,7 @@ public final class JPA {
      * @param entityClass Classe de l'entité persistante
      * @param id Identifiant unique
      */
-    public static void remove(final Class<?> entityClass, Object id) {
+    public static void remove(final Class<? extends Identifiable<?>> entityClass, Object id) {
         var option = get(entityClass, id);
         if (option.isPresent()) {
             remove(option.get());
@@ -159,7 +181,7 @@ public final class JPA {
      * @see Repository#removeAll(Collection)
      * @param entities Collection d'entités persistantes
      */
-    public static void removeAll(final Collection<?> entities) {
+    public static void removeAll(final Collection<? extends Identifiable<?>> entities) {
         entities.forEach(JPA::remove);
     }
 
@@ -171,7 +193,7 @@ public final class JPA {
      * @return Une option contenant ou non l'entité correspondante à
      * l'identifiant unique
      */
-    public static <E> Optional<E> get(final Class<E> entityClass, final Object id) {
+    public static <E extends Identifiable<?>> Optional<E> get(final Class<E> entityClass, final Object id) {
         var em = CDI.current().select(EntityManager.class).get();
         Optional<E> option;
         if (Objects.isNull(id)) {
@@ -189,7 +211,7 @@ public final class JPA {
      * @param entityClass Classe de l'entité persistante
      * @return Une liste d'entités persistantes
      */
-    public static <E> List<E> get(final Class<E> entityClass) {
+    public static <E extends Identifiable<?>> List<E> get(final Class<E> entityClass) {
         var em = CDI.current().select(EntityManager.class).get();
         var cb = em.getCriteriaBuilder();
         var q = cb.createQuery(entityClass);
@@ -198,13 +220,16 @@ public final class JPA {
     }
 
     /**
-     * 
+     * @see Repository#get(Pagination)
      * @param <E> Type d'entité persistante
      * @param entityClass Classe de l'entité persistante
      * @param pagination Critère de filtrage pour la pagination
      * @return Une liste d'entités persistantes
      */
-    public static <E> List<E> get(final Class<E> entityClass, final Pagination pagination) {
+    public static <E extends Identifiable<?>> Collection<E> get(
+            final Class<E> entityClass,
+            final Pagination pagination) {
+
         var em = CDI.current().select(EntityManager.class).get();
         var cb = em.getCriteriaBuilder();
         var q = cb.createQuery(entityClass);
@@ -234,7 +259,7 @@ public final class JPA {
                     .map(Attribute::getName)
                     .filter(pagination.getOrderBy()::contains)
                     .collect(Collectors.toList());
-            
+
             List<Order> orders;
             if (pagination.isAscending()) {
                 orders = orderByAttributes

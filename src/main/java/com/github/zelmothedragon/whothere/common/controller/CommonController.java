@@ -46,7 +46,7 @@ public class CommonController {
             @PathParam("entity") final String entityName,
             @QueryParam("keyword") final String keyword,
             @DefaultValue("0") @QueryParam("pageNumber") final int pageNumber,
-            @DefaultValue("500") @QueryParam("pageSize") final int pageSize,
+            @DefaultValue("100") @QueryParam("pageSize") final int pageSize,
             @QueryParam("orderBy") final List<String> orderBy,
             @DefaultValue("true") @QueryParam("asc") final boolean ascending,
             @DefaultValue("false") @QueryParam("noLimit") final boolean noLimit) {
@@ -76,7 +76,7 @@ public class CommonController {
 
         var entityClass = DynamicEntityMapper.mapToEntityClass(entityName);
         var entityId = DynamicEntityMapper.mapToEntityId(entityName, id);
-
+       
         return service
                 .find(entityClass, entityId)
                 .map(e -> Response.ok(e).build())

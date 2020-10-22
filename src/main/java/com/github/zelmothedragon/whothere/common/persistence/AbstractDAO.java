@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.Optional;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
 
 /**
  * Classe mère pour les opérations de persistances génériques.
@@ -21,12 +19,6 @@ public abstract class AbstractDAO<E extends Identifiable<K>, K>
      * Numéro de série.
      */
     private static final long serialVersionUID = 1L;
-
-    /**
-     * Gestionnaire d'entité.
-     */
-    @Inject
-    protected transient EntityManager em;
 
     /**
      * Constructeur d'injection.Requis pour le fonctionnement des technologies
@@ -94,6 +86,11 @@ public abstract class AbstractDAO<E extends Identifiable<K>, K>
     @Override
     public Collection<E> get() {
         return JPA.get(getEntityClass());
+    }
+
+    @Override
+    public Collection<E> get(final Pagination pagination) {
+        return JPA.get(getEntityClass(), pagination);
     }
 
     /**

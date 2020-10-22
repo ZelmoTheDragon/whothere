@@ -1,6 +1,7 @@
 package com.github.zelmothedragon.whothere.common.service;
 
 import com.github.zelmothedragon.whothere.common.persistence.Identifiable;
+import com.github.zelmothedragon.whothere.common.persistence.Pagination;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -23,11 +24,19 @@ public interface Service<E extends Identifiable<K>, K> {
     Optional<E> find(K id);
 
     /**
-     * Chercher toutes les entités enregistrés.
+     * Rechercher toutes les entités enregistrés.
      *
      * @return Une liste des entités métiers
      */
     Collection<E> find();
+
+    /**
+     * Rechercher des entités enregistrés avec un critère de pagination.
+     *
+     * @param pagination Critère de pagination
+     * @return Une collection des entités métiers
+     */
+    Collection<E> find(Pagination pagination);
 
     /**
      * Vérifier l'existence d'une entité.
