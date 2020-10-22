@@ -25,11 +25,17 @@ public class CommonService {
         // Ne pas appeler explicitement.
     }
 
-    public Optional<? extends Identifiable<?>> find(final Class<? extends Identifiable<?>> entityClass, final Object id) {
+    public Optional<? extends Identifiable<?>> find(
+            final Class<? extends Identifiable<?>> entityClass,
+            final Object id) {
+
         return JPA.get(entityClass, id);
     }
 
-    public Collection<? extends Identifiable<?>> find(final Class<? extends Identifiable<?>> entityClass, final Pagination pagination) {
+    public Collection<? extends Identifiable<?>> find(
+            final Class<? extends Identifiable<?>> entityClass,
+            final Pagination pagination) {
+
         return JPA.get(entityClass, pagination);
     }
 
@@ -42,7 +48,10 @@ public class CommonService {
         JPA.remove(entity);
     }
 
-    public void remove(final Class<? extends Identifiable<?>> entityClass, Object id) {
+    public void remove(
+            final Class<? extends Identifiable<?>> entityClass,
+            final Object id) {
+
         JPA.remove(id);
     }
 

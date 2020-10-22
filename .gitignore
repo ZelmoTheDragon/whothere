@@ -11,3 +11,9 @@
 # IntelliJ IDEA
 **/.idea
 **/**.iml
+
+# VS Code
+**/.classpath
+**/.factorypath
+**/.project
+**/.settings
