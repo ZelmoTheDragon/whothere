@@ -1,6 +1,5 @@
 package com.github.zelmothedragon.whothere.common.persistence;
 
-import com.github.zelmothedragon.whothere.common.persistence.AbstractEntity;
 import javax.enterprise.context.Dependent;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;

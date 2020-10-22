@@ -29,11 +29,12 @@ public class CommonService {
         return JPA.get(entityClass, id);
     }
 
-    public Collection<? extends Identifiable<?>> find(final Pagination pagination) {
-        return JPA.get(pagination);
+    public Collection<? extends Identifiable<?>> find(final Class<? extends Identifiable<?>> entityClass, final Pagination pagination) {
+        return JPA.get(entityClass, pagination);
     }
 
     public Identifiable<?> save(final Identifiable<?> entity) {
+        entity.checkId();
         return JPA.add(entity);
     }
 

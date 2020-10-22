@@ -1,6 +1,5 @@
 package com.github.zelmothedragon.whothere.common.persistence;
 
-import com.github.zelmothedragon.whothere.common.persistence.AbstractEntity;
 import javax.enterprise.context.Dependent;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbPropertyOrder;
@@ -8,11 +7,11 @@ import javax.json.bind.annotation.JsonbTransient;
 import javax.json.bind.config.PropertyOrderStrategy;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -43,24 +42,27 @@ public class Organization extends AbstractEntity {
     @Pattern(regexp = "[A-Z0-9]*")
     @Size(min = 1, max = 255)
     @NotBlank
-    @JsonbProperty(value = "code", nillable = false)
+    @JsonbProperty(value = "code", nillable = true)
     @Column(name = "code", nullable = false, unique = true)
+    @Basic(fetch = FetchType.LAZY)
     private String code;
 
     /**
      * Nom commun.
      */
     @Size(min = 1, max = 255)
-    @JsonbProperty(value = "name", nillable = false)
+    @JsonbProperty(value = "name", nillable = true)
     @Column(name = "name", nullable = false)
+    @Basic(fetch = FetchType.LAZY)
     private String name;
 
     /**
      * Description.
      */
     @Size(min = 1, max = 255)
-    @JsonbProperty(value = "description", nillable = false)
+    @JsonbProperty(value = "description", nillable = true)
     @Column(name = "description", nullable = false)
+    @Basic(fetch = FetchType.LAZY)
     private String description;
 
     /**

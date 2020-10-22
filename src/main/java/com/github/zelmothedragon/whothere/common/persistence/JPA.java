@@ -1,6 +1,5 @@
 package com.github.zelmothedragon.whothere.common.persistence;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -8,8 +7,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.enterprise.inject.spi.CDI;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.metamodel.SingularAttribute;
+import javax.persistence.metamodel.Attribute;
 
 /**
  * Utilitaire <i>JPA</i> pour les opérations de base sur les entités
@@ -187,7 +187,7 @@ public final class JPA {
      * @see Repository#get()
      * @param <E> Type d'entité persistante
      * @param entityClass Classe de l'entité persistante
-     * @return Une liste des entités persistantes
+     * @return Une liste d'entités persistantes
      */
     public static <E> List<E> get(final Class<E> entityClass) {
         var em = CDI.current().select(EntityManager.class).get();
@@ -197,9 +197,15 @@ public final class JPA {
         return em.createQuery(q).getResultList();
     }
 
-    public static <E> List<E> get(final Pagination pagination) {
+    /**
+     * 
+     * @param <E> Type d'entité persistante
+     * @param entityClass Classe de l'entité persistante
+     * @param pagination Critère de filtrage pour la pagination
+     * @return Une liste d'entités persistantes
+     */
+    public static <E> List<E> get(final Class<E> entityClass, final Pagination pagination) {
         var em = CDI.current().select(EntityManager.class).get();
-        Class<E> entityClass = (Class<E>) pagination.getEntityClass();
         var cb = em.getCriteriaBuilder();
         var q = cb.createQuery(entityClass);
         var root = q.from(entityClass);
@@ -207,7 +213,7 @@ public final class JPA {
         if (Objects.nonNull(pagination.getKeyword())) {
             String search = String.format("%%%s%%", pagination.getKeyword().trim().toLowerCase());
 
-            List<Predicate> restrictions = em
+            var restrictions = em
                     .getMetamodel()
                     .entity(entityClass)
                     .getAttributes()
@@ -219,11 +225,44 @@ public final class JPA {
             q.where(cb.or(restrictions.toArray(new Predicate[restrictions.size()])));
         }
 
-        return em
-                .createQuery(q)
-                .setFirstResult(pagination.getIndex())
-                .setMaxResults(pagination.getPageSize())
-                .getResultList();
+        if (pagination.isOrdered()) {
+            var orderByAttributes = em
+                    .getMetamodel()
+                    .entity(entityClass)
+                    .getAttributes()
+                    .stream()
+                    .map(Attribute::getName)
+                    .filter(pagination.getOrderBy()::contains)
+                    .collect(Collectors.toList());
+            
+            List<Order> orders;
+            if (pagination.isAscending()) {
+                orders = orderByAttributes
+                        .stream()
+                        .map(a -> cb.asc(root.get(a)))
+                        .collect(Collectors.toList());
+            } else {
+                orders = orderByAttributes
+                        .stream()
+                        .map(a -> cb.desc(root.get(a)))
+                        .collect(Collectors.toList());
+            }
+            q.orderBy(orders);
+        }
+
+        List<E> result;
+        if (pagination.isNoLimit()) {
+            result = em
+                    .createQuery(q)
+                    .getResultList();
+        } else {
+            result = em
+                    .createQuery(q)
+                    .setFirstResult(pagination.getIndex())
+                    .setMaxResults(pagination.getPageSize())
+                    .getResultList();
+        }
+        return result;
     }
 
     /**

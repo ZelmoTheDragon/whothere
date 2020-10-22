@@ -33,7 +33,7 @@ public abstract class AbstractEntity implements Identifiable<UUID>, Serializable
      * Clef primaire.
      */
     @NotNull
-    @JsonbProperty(value = "id", nillable = false)
+    @JsonbProperty(value = "id", nillable = true)
     @Id
     @Column(name = "id", nullable = false, unique = true, columnDefinition = UUIDConverter.UUID_COLUMN)
     protected UUID id;
@@ -44,7 +44,7 @@ public abstract class AbstractEntity implements Identifiable<UUID>, Serializable
      * jour en cas d'accès concurrent.
      */
     @NotNull
-    @JsonbProperty(value = "version", nillable = false)
+    @JsonbProperty(value = "version", nillable = true)
     @Version
     @Column(name = "version", nullable = false)
     protected Long version;
@@ -95,6 +95,16 @@ public abstract class AbstractEntity implements Identifiable<UUID>, Serializable
                 id,
                 version
         );
+    }
+
+    @Override
+    public void checkId() {
+        if (Objects.isNull(id)) {
+            id = UUID.randomUUID();
+        }
+        if (Objects.isNull(version)) {
+            version = 0L;
+        }
     }
 
     // ------------------------------

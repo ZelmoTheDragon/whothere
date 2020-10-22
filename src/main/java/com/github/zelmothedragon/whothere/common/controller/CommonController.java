@@ -2,6 +2,7 @@ package com.github.zelmothedragon.whothere.common.controller;
 
 import com.github.zelmothedragon.whothere.common.persistence.Pagination;
 import com.github.zelmothedragon.whothere.common.service.CommonService;
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -44,12 +45,23 @@ public class CommonController {
     public Response find(
             @PathParam("entity") final String entityName,
             @QueryParam("keyword") final String keyword,
-            @DefaultValue("1") @QueryParam("pageNumber") final int pageNumber,
-            @DefaultValue("500") @QueryParam("pageSize") final int pageSize) {
+            @DefaultValue("0") @QueryParam("pageNumber") final int pageNumber,
+            @DefaultValue("500") @QueryParam("pageSize") final int pageSize,
+            @QueryParam("orderBy") final List<String> orderBy,
+            @DefaultValue("true") @QueryParam("asc") final boolean ascending,
+            @DefaultValue("false") @QueryParam("noLimit") final boolean noLimit) {
 
         var entityClass = DynamicEntityMapper.mapToEntityClass(entityName);
-        var dataModel = new Pagination(entityClass, keyword, pageNumber, pageSize);
-        var entities = service.find(dataModel);
+        var pagination = new Pagination(
+                keyword,
+                pageNumber,
+                pageSize,
+                orderBy,
+                ascending,
+                noLimit
+        );
+        
+        var entities = service.find(entityClass, pagination);
 
         return Response
                 .ok(entities)

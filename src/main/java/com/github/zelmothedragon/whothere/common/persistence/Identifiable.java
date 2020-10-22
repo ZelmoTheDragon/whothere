@@ -23,4 +23,10 @@ public interface Identifiable<K> {
      * @param id Identifiant unique
      */
     void setId(K id);
+
+    /**
+     * Vérifier l'identifiant de cette entité. Si l'identifiant est inexistant,
+     * il est alors généré.
+     */
+    void checkId();
 }
