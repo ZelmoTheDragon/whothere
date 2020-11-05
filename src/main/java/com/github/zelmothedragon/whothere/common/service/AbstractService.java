@@ -6,7 +6,6 @@ import com.github.zelmothedragon.whothere.common.persistence.Repository;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.Optional;
-import javax.enterprise.inject.spi.CDI;
 
 /**
  * Classe mère pour les opérations métiers génériques.
