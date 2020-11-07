@@ -4,6 +4,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.faces.annotation.FacesConfig;
 
 /**
+ * Classe de configuration de <i>JSF</i>.
  *
  * @author MOSELLE Maxime
  */

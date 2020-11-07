@@ -9,6 +9,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 /**
+ * Classe de configuration du contexte <i>Servlet</i>.
  *
  * @author MOSELLE Maxime
  */
