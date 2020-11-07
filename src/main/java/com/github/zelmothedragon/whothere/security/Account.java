@@ -4,10 +4,6 @@ import com.github.zelmothedragon.whothere.common.persistence.AbstractEntity;
 import java.util.HashSet;
 import java.util.Set;
 import javax.enterprise.context.Dependent;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
-import javax.json.bind.annotation.JsonbTransient;
-import javax.json.bind.config.PropertyOrderStrategy;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CollectionTable;
@@ -28,7 +24,6 @@ import javax.validation.constraints.Size;
  * @author MOSELLE Maxime
  */
 @Dependent
-@JsonbPropertyOrder(PropertyOrderStrategy.LEXICOGRAPHICAL)
 @Entity
 @Table(name = "account")
 @Access(AccessType.FIELD)
@@ -44,7 +39,6 @@ public class Account extends AbstractEntity {
      */
     @Size(min = 2, max = 255)
     @NotBlank
-    @JsonbProperty(value = "username", nillable = false)
     @Column(name = "username", unique = true)
     private String username;
 
@@ -52,7 +46,6 @@ public class Account extends AbstractEntity {
      * Mot de passe (haché).
      */
     @NotBlank
-    @JsonbTransient
     @Column(name = "password")
     private String password;
 
@@ -60,7 +53,6 @@ public class Account extends AbstractEntity {
      * Indique si le compte est bloqué.
      */
     @NotNull
-    @JsonbProperty(value = "locked", nillable = false)
     @Column(name = "locked", nullable = false)
     private Boolean locked;
 
@@ -68,7 +60,6 @@ public class Account extends AbstractEntity {
      * Rôles.
      */
     @NotNull
-    @JsonbProperty(value = "roles", nillable = false)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
             name = "account_role",

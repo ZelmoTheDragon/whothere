@@ -4,10 +4,6 @@ import com.github.zelmothedragon.whothere.common.persistence.Agent;
 import com.github.zelmothedragon.whothere.common.persistence.AbstractEntity;
 import java.time.LocalDateTime;
 import javax.enterprise.context.Dependent;
-import javax.json.bind.annotation.JsonbDateFormat;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
-import javax.json.bind.config.PropertyOrderStrategy;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
@@ -26,7 +22,6 @@ import javax.validation.constraints.NotNull;
  * @author MOSELLE Maxime
  */
 @Dependent
-@JsonbPropertyOrder(PropertyOrderStrategy.LEXICOGRAPHICAL)
 @Entity
 @Table(
         name = "absence",
@@ -46,7 +41,6 @@ public class Absence extends AbstractEntity {
      * Agent absenté.
      */
     @NotNull
-    @JsonbProperty(value = "agent", nillable = false)
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "agent_id", nullable = false)
     private Agent agent;
@@ -55,7 +49,6 @@ public class Absence extends AbstractEntity {
      * État d'absence.
      */
     @NotNull
-    @JsonbProperty(value = "state", nillable = false)
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "state_of_absence_id", nullable = false)
     private State state;
@@ -64,8 +57,6 @@ public class Absence extends AbstractEntity {
      * Date de début d'absence.
      */
     @NotNull
-    @JsonbDateFormat("yyyy-MM-dd HH:mm:ss")
-    @JsonbProperty(value = "startDate", nillable = false)
     @Column(name = "start_date", nullable = false)
     private LocalDateTime startDate;
 
@@ -73,8 +64,6 @@ public class Absence extends AbstractEntity {
      * Date de fin d'absence.
      */
     @NotNull
-    @JsonbDateFormat("yyyy-MM-dd HH:mm:ss")
-    @JsonbProperty(value = "endDate", nillable = false)
     @Column(name = "end_date", nullable = false)
     private LocalDateTime endDate;
 

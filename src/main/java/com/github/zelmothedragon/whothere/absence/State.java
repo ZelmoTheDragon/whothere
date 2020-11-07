@@ -2,9 +2,6 @@ package com.github.zelmothedragon.whothere.absence;
 
 import com.github.zelmothedragon.whothere.common.persistence.AbstractEntity;
 import javax.enterprise.context.Dependent;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
-import javax.json.bind.config.PropertyOrderStrategy;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
@@ -21,7 +18,6 @@ import javax.validation.constraints.Size;
  * @author MOSELLE Maxime
  */
 @Dependent
-@JsonbPropertyOrder(PropertyOrderStrategy.LEXICOGRAPHICAL)
 @Entity
 @Table(name = "state_of_absence")
 @Access(AccessType.FIELD)
@@ -38,7 +34,6 @@ public class State extends AbstractEntity {
     @Pattern(regexp = "[A-Z0-9_]*")
     @Size(min = 1, max = 255)
     @NotBlank
-    @JsonbProperty(value = "code", nillable = false)
     @Column(name = "code", nullable = false, unique = true)
     private String code;
 
@@ -47,7 +42,6 @@ public class State extends AbstractEntity {
      */
     @Size(min = 1, max = 255)
     @NotBlank
-    @JsonbProperty(value = "description", nillable = false)
     @Column(name = "description", nullable = false)
     private String description;
 
@@ -55,7 +49,6 @@ public class State extends AbstractEntity {
      * Indique si un agent est disponile ou non.
      */
     @NotNull
-    @JsonbProperty(value = "available", nillable = false)
     @Column(name = "available", nullable = false)
     private Boolean available;
 

@@ -1,9 +1,6 @@
 package com.github.zelmothedragon.whothere.common.persistence;
 
 import javax.enterprise.context.Dependent;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
-import javax.json.bind.config.PropertyOrderStrategy;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
@@ -22,7 +19,6 @@ import javax.validation.constraints.Size;
  * @author MOSELLE Maxime
  */
 @Dependent
-@JsonbPropertyOrder(PropertyOrderStrategy.LEXICOGRAPHICAL)
 @Entity
 @Table(name = "agent")
 @Access(AccessType.FIELD)
@@ -38,7 +34,6 @@ public class Agent extends AbstractEntity {
      */
     @Size(min = 1, max = 255)
     @NotBlank
-    @JsonbProperty(value = "givenName", nillable = false)
     @Column(name = "given_name", nullable = false)
     private String givenName;
 
@@ -47,7 +42,6 @@ public class Agent extends AbstractEntity {
      */
     @Size(min = 1, max = 255)
     @NotBlank
-    @JsonbProperty(value = "familyName", nillable = false)
     @Column(name = "family_name", nullable = false)
     private String familyName;
 
@@ -57,7 +51,6 @@ public class Agent extends AbstractEntity {
     @Size(min = 1, max = 255)
     @Email
     @NotBlank
-    @JsonbProperty(value = "email", nillable = false)
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
@@ -66,7 +59,6 @@ public class Agent extends AbstractEntity {
      */
     @Size(min = 1, max = 255)
     @NotBlank
-    @JsonbProperty(value = "rank", nillable = false)
     @Column(name = "rank", nullable = false)
     private String rank;
 
@@ -75,7 +67,6 @@ public class Agent extends AbstractEntity {
      */
     @Size(min = 1, max = 255)
     @NotBlank
-    @JsonbProperty(value = "shortRank", nillable = false)
     @Column(name = "short_rank", nullable = false)
     private String shortRank;
 
@@ -84,7 +75,6 @@ public class Agent extends AbstractEntity {
      */
     @Size(min = 1, max = 255)
     @NotBlank
-    @JsonbProperty(value = "phoneNumber", nillable = false)
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 

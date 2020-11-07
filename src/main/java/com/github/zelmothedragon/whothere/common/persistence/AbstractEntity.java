@@ -3,9 +3,6 @@ package com.github.zelmothedragon.whothere.common.persistence;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbPropertyOrder;
-import javax.json.bind.config.PropertyOrderStrategy;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
@@ -19,7 +16,6 @@ import javax.validation.constraints.NotNull;
  *
  * @author MOSELLE Maxime
  */
-@JsonbPropertyOrder(PropertyOrderStrategy.LEXICOGRAPHICAL)
 @MappedSuperclass
 @Access(AccessType.FIELD)
 public abstract class AbstractEntity implements Identifiable<UUID>, Serializable {
@@ -33,7 +29,6 @@ public abstract class AbstractEntity implements Identifiable<UUID>, Serializable
      * Clef primaire.
      */
     @NotNull
-    @JsonbProperty(value = "id", nillable = true)
     @Id
     @Column(name = "id", nullable = false, unique = true, columnDefinition = UUIDConverter.UUID_COLUMN)
     protected UUID id;
@@ -44,7 +39,6 @@ public abstract class AbstractEntity implements Identifiable<UUID>, Serializable
      * jour en cas d'accès concurrent.
      */
     @NotNull
-    @JsonbProperty(value = "version", nillable = true)
     @Version
     @Column(name = "version", nullable = false)
     protected Long version;
