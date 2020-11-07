@@ -16,6 +16,26 @@
 
     <ui:define name="main">
         <h3 class="center">
+            <h:form id="searching">
+
+                <p:panelGrid 
+                    layout="flex" 
+                    columns="1" 
+                    columnClasses="p-col-12 p-md-12 p-xl-12"
+                    contentStyleClass="ui-fluid">
+
+                    <p:inputText id="search" />
+
+                    <p:commandButton 
+                        id="submit" 
+                        icon="pi pi-search"
+                        action="#{loginController.login(credentials)}"
+                        validateClient="true"
+                        update="@form"
+                        value="#{m['btn.search']}" />
+                </p:panelGrid>
+
+            </h:form>
         </h3>
     </ui:define>
 

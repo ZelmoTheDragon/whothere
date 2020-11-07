@@ -1,8 +1,8 @@
-package com.github.zelmothedragon.whothere.common.service;
+package com.github.zelmothedragon.whothere.common;
 
-import com.github.zelmothedragon.whothere.common.persistence.Pagination;
-import com.github.zelmothedragon.whothere.common.persistence.Identifiable;
-import com.github.zelmothedragon.whothere.common.persistence.JPA;
+import com.github.zelmothedragon.whothere.core.persistence.Pagination;
+import com.github.zelmothedragon.whothere.core.persistence.Identifiable;
+import com.github.zelmothedragon.whothere.core.persistence.JPA;
 import java.util.Collection;
 import java.util.Optional;
 import javax.enterprise.context.ApplicationScoped;

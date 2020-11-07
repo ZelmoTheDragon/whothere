@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whothere.common.security;
+package com.github.zelmothedragon.whothere.security;
 
 import javax.enterprise.inject.Model;
 import javax.validation.constraints.NotBlank;

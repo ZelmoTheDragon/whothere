@@ -1,5 +1,6 @@
-package com.github.zelmothedragon.whothere.common.persistence;
+package com.github.zelmothedragon.whothere.common;
 
+import com.github.zelmothedragon.whothere.core.persistence.AbstractEntity;
 import javax.enterprise.context.Dependent;
 import javax.persistence.Access;
 import javax.persistence.AccessType;

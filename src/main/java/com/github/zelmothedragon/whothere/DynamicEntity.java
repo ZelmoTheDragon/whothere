@@ -1,9 +1,9 @@
 package com.github.zelmothedragon.whothere;
 
 
-import com.github.zelmothedragon.whothere.common.persistence.Agent;
-import com.github.zelmothedragon.whothere.common.persistence.Organization;
-import com.github.zelmothedragon.whothere.common.persistence.Identifiable;
+import com.github.zelmothedragon.whothere.common.Agent;
+import com.github.zelmothedragon.whothere.common.Organization;
+import com.github.zelmothedragon.whothere.core.persistence.Identifiable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;

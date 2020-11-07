@@ -1,8 +1,9 @@
-package com.github.zelmothedragon.whothere.common.service;
+package com.github.zelmothedragon.whothere.core.service;
 
-import com.github.zelmothedragon.whothere.common.persistence.Identifiable;
-import com.github.zelmothedragon.whothere.common.persistence.Pagination;
-import com.github.zelmothedragon.whothere.common.persistence.Repository;
+import com.github.zelmothedragon.whothere.common.CommonService;
+import com.github.zelmothedragon.whothere.core.persistence.Identifiable;
+import com.github.zelmothedragon.whothere.core.persistence.Pagination;
+import com.github.zelmothedragon.whothere.core.persistence.Repository;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.Optional;

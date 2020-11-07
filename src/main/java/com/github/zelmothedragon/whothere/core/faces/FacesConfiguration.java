@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whothere.common.faces;
+package com.github.zelmothedragon.whothere.core.faces;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.annotation.FacesConfig;

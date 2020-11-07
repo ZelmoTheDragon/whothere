@@ -1,5 +1,6 @@
-package com.github.zelmothedragon.whothere.common.security;
+package com.github.zelmothedragon.whothere.security;
 
+import com.github.zelmothedragon.whothere.core.faces.Page;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -25,10 +26,11 @@ public class LoginController {
      *
      * @param form Formulaire de connexion.
      */
-    public void login(final Credentials form) {
+    public String login(final Credentials form) {
 
         System.out.println("LOGIN:");
         System.out.println(form.getUsername());
         System.out.println(form.getPassword());
+        return Page.HOME.redirect();
     }
 }

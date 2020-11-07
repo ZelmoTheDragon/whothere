@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whothere.common.persistence;
+package com.github.zelmothedragon.whothere.core.persistence;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;

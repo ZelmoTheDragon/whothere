@@ -1,6 +1,6 @@
 package com.github.zelmothedragon.whothere.security;
 
-import com.github.zelmothedragon.whothere.common.persistence.AbstractEntity;
+import com.github.zelmothedragon.whothere.core.persistence.AbstractEntity;
 import java.util.HashSet;
 import java.util.Set;
 import javax.enterprise.context.Dependent;

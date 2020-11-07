@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whothere.common.persistence;
+package com.github.zelmothedragon.whothere.core.persistence;
 
 /**
  * Interface générique pour toutes les entitiés identifiables par un identifiant

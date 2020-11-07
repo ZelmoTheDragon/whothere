@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whothere.common.faces;
+package com.github.zelmothedragon.whothere.core.faces;
 
 import java.io.Serializable;
 import java.util.Locale;
