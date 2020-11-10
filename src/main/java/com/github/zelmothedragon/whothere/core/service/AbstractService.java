@@ -5,7 +5,7 @@ import com.github.zelmothedragon.whothere.core.persistence.Identifiable;
 import com.github.zelmothedragon.whothere.core.persistence.Pagination;
 import com.github.zelmothedragon.whothere.core.persistence.Repository;
 import java.lang.reflect.ParameterizedType;
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -18,49 +18,54 @@ import java.util.Optional;
  */
 public abstract class AbstractService<E extends Identifiable<K>, K, D extends Repository<E, K>>
         implements Service<E, K> {
-    
+
     private final CommonService service;
-    
+
     protected AbstractService(final CommonService service) {
         this.service = service;
-        
+
     }
-    
+
     @Override
     public Optional<E> find(final K id) {
         return service.find(getEntityClass(), id);
     }
-    
+
     @Override
-    public Collection<E> find() {
+    public List<E> find() {
         return null;
     }
-    
+
     @Override
-    public Collection<E> find(final Pagination pagination) {
-        return service.find(getEntityClass(), pagination);
+    public List<E> filter(final Pagination pagination) {
+        return service.filter(getEntityClass(), pagination);
     }
-    
+
+    @Override
+    public List<E> filter(String keyword) {
+        return service.filter(getEntityClass(), keyword);
+    }
+
     @Override
     public E save(final E entity) {
         return service.save(entity);
     }
-    
+
     @Override
     public boolean exists(E entity) {
         return false;
     }
-    
+
     @Override
     public boolean exists(K id) {
         return false;
     }
-    
+
     @Override
     public void remove(final E entity) {
         service.remove(entity);
     }
-    
+
     @Override
     public void remove(K id) {
         service.remove(getEntityClass(), id);

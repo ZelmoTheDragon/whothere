@@ -8,7 +8,8 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    lang="#{internationalization.currentLocale}">
 
     <h:head>
         <meta charset="UTF-8" />
@@ -31,24 +32,24 @@
     </h:head>
     <h:body>
         <header>
-            <nav class="select-lang">
-                <h:form>
-                    <ul>
-                        <li>
-                            <h:commandLink 
-                                title="#{m['lang.fr']}"
-                                action="#{internationalization.changeLocale('FR')}">
-                                <h:graphicImage library="public" name="images/flag-fr.png" alt="#{m['lang.fr']}" />
-                            </h:commandLink>
-                        </li>
-                        <li>
-                            <h:commandLink 
-                                title="#{m['lang.en']}"
-                                action="#{internationalization.changeLocale('EN')}">
-                                <h:graphicImage library="public" name="images/flag-uk.png" alt="#{m['lang.en']}" />
-                            </h:commandLink>
-                        </li>
-                    </ul>
+            <nav>
+                <h:form id="menu">
+
+                    <p:commandButton 
+                        id="menu-button"
+                        type="button"
+                        icon="pi pi-bars" />
+
+                    <p:menu overlay="true" trigger="menu-button" my="left top" at="left bottom">
+                        <p:menuitem value="#{m['lang.fr']}" icon="pi pi-globe" actionListener="#{internationalization.changeLocale('FR')}" />
+                        <p:menuitem value="#{m['lang.en']}" icon="pi pi-globe" actionListener="#{internationalization.changeLocale('EN')}" />
+                        <p:separator />
+                        <p:menuitem value="#{m['menu.home']}" icon="pi pi-home" url="#{request.contextPath}/home.xhtml" />
+                        <p:menuitem value="#{m['menu.agent']}" icon="pi pi-users" url="#{request.contextPath}/protected/agent.xhtml" />
+                        <p:separator />
+                        <p:menuitem value="#{m['menu.logout']}" icon="pi pi-sign-out" action="#{securityController.logout()}" />
+                    </p:menu>
+
                 </h:form>
             </nav>
             <ui:insert name="title">
@@ -59,7 +60,7 @@
             <!-- A REDEFINIR -->
         </ui:insert>
         <footer>
-            <h:panelGroup layout="span">
+            <h:panelGroup id="version" layout="block">
                 <h:outputText value="#{m['app.version']}" />
             </h:panelGroup>
         </footer>

@@ -1,6 +1,7 @@
 package com.github.zelmothedragon.whothere.core.persistence;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -101,20 +102,29 @@ public interface Repository<E extends Identifiable<K>, K> {
      * @return Une option contenant ou non l'entité correspondante à
      * l'identifiant unique
      */
-    Optional<E> get(K id);
+    Optional<E> find(K id);
 
     /**
      * Rechercher toutes les entités enregistrés.
      *
-     * @return Une collection des entités persistantes
+     * @return Une liste des entités persistantes
      */
-    Collection<E> get();
+    List<E> get();
 
     /**
-     * Rechercher des entités enregistrés avec un critère de pagination.
+     * Rechercher des entités enregistrées avec un critère de pagination.
+     *
      * @param pagination Critère de pagination
-     * @return Une collection des entités persistantes
+     * @return Une liste des entités persistantes
      */
-    Collection<E> get(Pagination pagination);
+    List<E> filter(Pagination pagination);
+
+    /**
+     * Rechercher des entités enregistrées en fonction d'un mot clef.
+     *
+     * @param keyword Mot clef pour la recherche
+     * @return Une liste des entités persistantes
+     */
+    List<E> filter(String keyword);
 
 }

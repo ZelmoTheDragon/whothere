@@ -94,6 +94,32 @@ public class Agent extends AbstractEntity {
     public Agent() {
         // Ne pas appeler explicitement.
     }
+    
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("Agent{id=")
+                .append(id)
+                .append(", version=")
+                .append(version)
+                .append(", givenName=")
+                .append(givenName)
+                .append(", familyName=")
+                .append(familyName)
+                .append(", email=")
+                .append(email)
+                .append(", rank=")
+                .append(rank)
+                .append(", shortRank=")
+                .append(shortRank)
+                .append(", phoneNumber=")
+                .append(phoneNumber)
+                .append(", gender=")
+                .append(gender)
+                .append('}')
+                .toString();
+        
+    }
 
     // ------------------------------
     // Accesseurs & Mutateurs
@@ -101,57 +127,57 @@ public class Agent extends AbstractEntity {
     public String getGivenName() {
         return givenName;
     }
-
+    
     public void setGivenName(String givenName) {
         this.givenName = givenName;
     }
-
+    
     public String getFamilyName() {
         return familyName;
     }
-
+    
     public void setFamilyName(String familyName) {
         this.familyName = familyName;
     }
-
+    
     public String getEmail() {
         return email;
     }
-
+    
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
     public String getRank() {
         return rank;
     }
-
+    
     public void setRank(String rank) {
         this.rank = rank;
     }
-
+    
     public String getShortRank() {
         return shortRank;
     }
-
+    
     public void setShortRank(String shortRank) {
         this.shortRank = shortRank;
     }
-
+    
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
+    
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
+    
     public Gender getGender() {
         return gender;
     }
-
+    
     public void setGender(Gender gender) {
         this.gender = gender;
     }
-
+    
 }

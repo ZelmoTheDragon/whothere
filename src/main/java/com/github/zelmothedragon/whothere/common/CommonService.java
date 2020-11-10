@@ -3,7 +3,7 @@ package com.github.zelmothedragon.whothere.common;
 import com.github.zelmothedragon.whothere.core.persistence.Pagination;
 import com.github.zelmothedragon.whothere.core.persistence.Identifiable;
 import com.github.zelmothedragon.whothere.core.persistence.JPA;
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
@@ -32,11 +32,18 @@ public class CommonService {
         return JPA.get(entityClass, id);
     }
 
-    public <E extends Identifiable<?>> Collection<E> find(
+    public <E extends Identifiable<?>> List<E> filter(
             final Class<E> entityClass,
             final Pagination pagination) {
 
         return JPA.get(entityClass, pagination);
+    }
+
+    public <E extends Identifiable<?>> List<E> filter(
+            final Class<E> entityClass,
+            final String keyword) {
+
+        return JPA.get(entityClass, keyword);
     }
 
     public boolean exists(final Identifiable<?> entity) {

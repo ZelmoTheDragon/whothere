@@ -226,7 +226,7 @@ public final class JPA {
      * @param pagination Critère de filtrage pour la pagination
      * @return Une liste d'entités persistantes
      */
-    public static <E extends Identifiable<?>> Collection<E> get(
+    public static <E extends Identifiable<?>> List<E> get(
             final Class<E> entityClass,
             final Pagination pagination) {
 
@@ -234,6 +234,7 @@ public final class JPA {
         var cb = em.getCriteriaBuilder();
         var q = cb.createQuery(entityClass);
         var root = q.from(entityClass);
+        q.distinct(true);
 
         if (Objects.nonNull(pagination.getKeyword())) {
             String search = String.format("%%%s%%", pagination.getKeyword().trim().toLowerCase());
@@ -288,6 +289,29 @@ public final class JPA {
                     .getResultList();
         }
         return result;
+    }
+
+    /**
+     * @see Repository#get(String)
+     * @param <E> Type d'entité persistante
+     * @param entityClass Classe de l'entité persistante
+     * @param keyword Mot clef pour la recherche
+     * @return Une liste d'entités persistantes
+     */
+    public static <E extends Identifiable<?>> List<E> get(
+            final Class<E> entityClass,
+            final String keyword) {
+
+        var pagination = new Pagination(
+                keyword,
+                0,
+                -1,
+                List.of(),
+                true,
+                true
+        );
+
+        return JPA.get(entityClass, pagination);
     }
 
     /**

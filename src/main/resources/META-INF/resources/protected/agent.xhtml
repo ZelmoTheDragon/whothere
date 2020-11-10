@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- Cette page hérite que la structure 'layout.xhtml' -->
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+    xmlns:p="http://primefaces.org/ui"
+    template="/public/templates/layout.xhtml">
+
+    <ui:define name="title">
+        <h1 class="center">
+            <h:outputText value="#{m['agent.title']}" />
+        </h1>
+    </ui:define>
+
+    <ui:define name="main">
+        <h:form>
+            <p:inputText 
+                id="search" 
+                placeholder="#{m['datatable.filter']}"
+                value="#{agentController.keyword}">
+                <p:ajax event="keyup" update="data" listener="#{agentController.search()}" />
+            </p:inputText>
+
+            <br/>
+            <br/>
+
+            <p:dataTable 
+                id="data" 
+                value="#{agentController.agents}"
+                var="e"
+                emptyMessage="#{m['datatable.empty']}"
+                reflow="true">
+
+                <p:column headerText="#{m['agent.email']}">
+                    <h:outputText value="#{e.email}" />
+                </p:column>
+
+                <p:column headerText="#{m['agent.givenName']}">
+                    <h:outputText value="#{e.givenName}" />
+                </p:column>
+
+                <p:column headerText="#{m['agent.familyName']}">
+                    <h:outputText value="#{e.familyName}" />
+                </p:column>
+
+                <p:column headerText="#{m['agent.shortRank']}">
+                    <h:outputText value="#{e.shortRank}" />
+                </p:column>
+
+                <p:column headerText="#{m['agent.rank']}">
+                    <h:outputText value="#{e.rank}" />
+                </p:column>
+
+                <p:column headerText="#{m['agent.phoneNumber']}">
+                    <h:outputText value="#{e.phoneNumber}" />
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

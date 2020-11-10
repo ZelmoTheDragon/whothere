@@ -3,6 +3,7 @@ package com.github.zelmothedragon.whothere.core.persistence;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -79,18 +80,23 @@ public abstract class AbstractDAO<E extends Identifiable<K>, K>
     }
 
     @Override
-    public Optional<E> get(final K id) {
+    public Optional<E> find(final K id) {
         return JPA.get(getEntityClass(), id);
     }
 
     @Override
-    public Collection<E> get() {
+    public List<E> get() {
         return JPA.get(getEntityClass());
     }
 
     @Override
-    public Collection<E> get(final Pagination pagination) {
+    public List<E> filter(final Pagination pagination) {
         return JPA.get(getEntityClass(), pagination);
+    }
+
+    @Override
+    public List<E> filter(String keyword) {
+        return JPA.get(getEntityClass(), keyword);
     }
 
     /**

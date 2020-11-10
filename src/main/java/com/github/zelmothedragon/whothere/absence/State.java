@@ -46,7 +46,7 @@ public class State extends AbstractEntity {
     private String description;
 
     /**
-     * Indique si un agent est disponile ou non.
+     * Indique si un agent est disponible ou non.
      */
     @NotNull
     @Column(name = "available", nullable = false)

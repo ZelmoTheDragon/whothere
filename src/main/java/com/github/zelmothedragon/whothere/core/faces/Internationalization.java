@@ -62,6 +62,8 @@ public class Internationalization implements Serializable {
                         .setLocale(Locale.FRENCH);
                 break;
         }
+        
+        System.out.println("CHANGING LANG. : " + currentLocale);
     }
 
     // ------------------------------

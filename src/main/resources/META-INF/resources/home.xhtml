@@ -10,7 +10,7 @@
 
     <ui:define name="title">
         <h1 class="center">
-            <h:outputText value="#{m['app.title']}" />
+            <h:outputText value="#{m['home.title']}" />
         </h1>
     </ui:define>
 
@@ -24,15 +24,16 @@
                     columnClasses="p-col-12 p-md-12 p-xl-12"
                     contentStyleClass="ui-fluid">
 
-                    <p:inputText id="search" />
+                    <p:inputText id="search" value="#{searchController.keyword}" />
 
                     <p:commandButton 
                         id="submit" 
                         icon="pi pi-search"
-                        action="#{loginController.login(credentials)}"
+                        action="#{searchController.search()}"
                         validateClient="true"
                         update="@form"
                         value="#{m['btn.search']}" />
+
                 </p:panelGrid>
 
             </h:form>
