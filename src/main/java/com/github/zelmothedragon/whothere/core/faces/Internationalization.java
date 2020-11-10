@@ -26,8 +26,8 @@ public class Internationalization implements Serializable {
     private Locale currentLocale;
 
     /**
-     * Constructeur d'injection. Requis pour le fonctionnement des technologies
-     * de Java EE.
+     * Constructeur par défaut. Requis pour le fonctionnement des technologies
+     * de <i>Jakarta EE</i>.
      */
     public Internationalization() {
         this.currentLocale = Locale.FRENCH;

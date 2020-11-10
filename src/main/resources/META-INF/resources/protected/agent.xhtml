@@ -8,6 +8,10 @@
     xmlns:p="http://primefaces.org/ui"
     template="/public/templates/layout.xhtml">
 
+    <f:metadata>
+        <f:importConstants type="com.github.zelmothedragon.whothere.DynamicEntity" var="DynamicEntity"/>
+    </f:metadata>
+    
     <ui:define name="title">
         <h1 class="center">
             <h:outputText value="#{m['agent.title']}" />
@@ -19,18 +23,18 @@
             <p:inputText 
                 id="search" 
                 placeholder="#{m['datatable.filter']}"
-                value="#{agentController.keyword}">
-                <p:ajax event="keyup" update="data" listener="#{agentController.search()}" />
+                value="#{searchController.keyword}">
+                <p:ajax event="keyup" update="datatable" listener="#{searchController.search(DynamicEntity.AGENT)}" />
             </p:inputText>
 
             <br/>
             <br/>
 
             <p:dataTable 
-                id="data" 
-                value="#{agentController.agents}"
+                id="datatable" 
+                value="#{searchController.entities}"
                 var="e"
-                emptyMessage="#{agentController.keywordEmpty ? m['datatable.too_many'] : m['datatable.empty']}"
+                emptyMessage="#{searchController.keywordEmpty ? m['datatable.too_many'] : m['datatable.empty']}"
                 reflow="true">
 
                 <p:column headerText="#{m['agent.email']}">
