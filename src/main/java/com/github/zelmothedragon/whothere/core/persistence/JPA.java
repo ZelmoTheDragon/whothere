@@ -17,6 +17,7 @@ import javax.persistence.metamodel.SingularAttribute;
  * persistantes.
  *
  * @author MOSELLE Maxime
+ * @see Repository
  */
 public final class JPA {
 

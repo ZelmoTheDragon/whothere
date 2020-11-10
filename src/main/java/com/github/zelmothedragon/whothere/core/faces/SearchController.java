@@ -1,6 +1,7 @@
-package com.github.zelmothedragon.whothere.common;
+package com.github.zelmothedragon.whothere.core.faces;
 
 import com.github.zelmothedragon.whothere.DynamicEntity;
+import com.github.zelmothedragon.whothere.core.service.CommonService;
 import com.github.zelmothedragon.whothere.core.persistence.Identifiable;
 import java.io.Serializable;
 import java.util.List;

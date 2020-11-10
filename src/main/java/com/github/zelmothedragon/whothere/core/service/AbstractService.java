@@ -1,6 +1,5 @@
 package com.github.zelmothedragon.whothere.core.service;
 
-import com.github.zelmothedragon.whothere.common.CommonService;
 import com.github.zelmothedragon.whothere.core.persistence.Identifiable;
 import com.github.zelmothedragon.whothere.core.persistence.Pagination;
 import com.github.zelmothedragon.whothere.core.persistence.Repository;
