@@ -33,7 +33,7 @@ public abstract class AbstractService<E extends Identifiable<K>, K, D extends Re
 
     @Override
     public List<E> find() {
-        return null;
+        return service.find(getEntityClass());
     }
 
     @Override
@@ -53,12 +53,12 @@ public abstract class AbstractService<E extends Identifiable<K>, K, D extends Re
 
     @Override
     public boolean exists(E entity) {
-        return false;
+        return service.exists(entity);
     }
 
     @Override
     public boolean exists(K id) {
-        return false;
+        return service.exists(getEntityClass(), id);
     }
 
     @Override

@@ -31,6 +31,10 @@ public class CommonService {
 
         return JPA.get(entityClass, id);
     }
+    
+    public <E extends Identifiable<?>> List<E> find(final Class<E> entityClass) {
+        return JPA.get(entityClass);
+    }
 
     public <E extends Identifiable<?>> List<E> filter(
             final Class<E> entityClass,
