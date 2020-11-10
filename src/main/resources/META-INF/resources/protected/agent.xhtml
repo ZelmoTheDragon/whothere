@@ -30,7 +30,7 @@
                 id="data" 
                 value="#{agentController.agents}"
                 var="e"
-                emptyMessage="#{m['datatable.empty']}"
+                emptyMessage="#{agentController.keywordEmpty ? m['datatable.too_many'] : m['datatable.empty']}"
                 reflow="true">
 
                 <p:column headerText="#{m['agent.email']}">

@@ -33,7 +33,17 @@ public class AgentController implements Serializable {
     }
 
     public void search() {
-        this.agents = service.filter(Agent.class, keyword);
+        if (isKeywordEmpty()) {
+            this.agents.clear();
+        } else {
+            this.agents = service.filter(Agent.class, keyword);
+        }
+    }
+
+    public boolean isKeywordEmpty() {
+        return Objects.isNull(keyword)
+                || keyword.isBlank()
+                || keyword.length() <= 1;
     }
 
     public String getKeyword() {
