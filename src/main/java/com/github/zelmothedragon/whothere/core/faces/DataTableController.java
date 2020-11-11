@@ -1,9 +1,10 @@
 package com.github.zelmothedragon.whothere.core.faces;
 
 import com.github.zelmothedragon.whothere.DynamicEntity;
-import com.github.zelmothedragon.whothere.core.service.CommonService;
 import com.github.zelmothedragon.whothere.core.persistence.Identifiable;
+import com.github.zelmothedragon.whothere.core.service.CommonService;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.faces.view.ViewScoped;
@@ -17,7 +18,7 @@ import javax.inject.Named;
  */
 @Named
 @ViewScoped
-public class SearchController implements Serializable {
+public class DataTableController implements Serializable {
 
     /**
      * Service métier générique.
@@ -39,14 +40,17 @@ public class SearchController implements Serializable {
      * Constructeur d'injection. Requis pour le fonctionnement des technologies
      * de Java EE.
      */
-    public SearchController() {
+    public DataTableController() {
+        this.entities = new ArrayList<>();
         // Ne pas appeler explicitement.
     }
 
     /**
      * Rechercher un élément dans le site.
+     *
+     * @param entityType Type dynamique de l'entité métier
      */
-    public void search(DynamicEntity entityType) {
+    public void search(final DynamicEntity entityType) {
         if (isKeywordEmpty()) {
             this.entities.clear();
         } else {
@@ -66,6 +70,23 @@ public class SearchController implements Serializable {
         return Objects.isNull(keyword)
                 || keyword.isBlank()
                 || keyword.length() <= 1;
+    }
+
+    /**
+     * Accéder au formulaire d'édition de l'entité métier.
+     *
+     * @param entityType Type dynamique de l'entité métier
+     */
+    public void edit(final DynamicEntity entityType, final Object id) {
+
+    }
+
+    /**
+     * Supprimer l'entité métier.
+     */
+    public void remove(final Identifiable<?> entity) {
+        this.service.remove(entity);
+        this.entities.remove(entity);
     }
 
     // ------------------------------

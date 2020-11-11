@@ -1,7 +1,7 @@
 package com.github.zelmothedragon.whothere.common;
 
 import com.github.zelmothedragon.whothere.core.persistence.AbstractEntity;
-import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Model;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
  *
  * @author MOSELLE Maxime
  */
-@Dependent
+@Model
 @Entity
 @Table(name = "agent")
 @Access(AccessType.FIELD)
@@ -98,7 +98,8 @@ public class Agent extends AbstractEntity {
     @Override
     public String toString() {
         return new StringBuilder()
-                .append("Agent{id=")
+                .append(getClass().getSimpleName())
+                .append("{id=")
                 .append(id)
                 .append(", version=")
                 .append(version)

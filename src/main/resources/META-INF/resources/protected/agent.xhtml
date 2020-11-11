@@ -11,7 +11,7 @@
     <f:metadata>
         <f:importConstants type="com.github.zelmothedragon.whothere.DynamicEntity" var="DynamicEntity"/>
     </f:metadata>
-    
+
     <ui:define name="title">
         <h1 class="center">
             <h:outputText value="#{m['agent.title']}" />
@@ -20,21 +20,30 @@
 
     <ui:define name="main">
         <h:form>
-            <p:inputText 
-                id="search" 
-                placeholder="#{m['datatable.filter']}"
-                value="#{searchController.keyword}">
-                <p:ajax event="keyup" update="datatable" listener="#{searchController.search(DynamicEntity.AGENT)}" />
-            </p:inputText>
+
+            <p:panelGrid 
+                columns="2" 
+                layout="flex" 
+                columnClasses="p-col-10 p-md-10 p-xl-10, p-col-2 p-md-2 p-xl-2" contentStyleClass="ui-fluid">
+
+                <p:inputText 
+                    id="search" 
+                    placeholder="#{m['datatable.filter']}"
+                    value="#{dataTableController.keyword}">
+                    <p:ajax event="keyup" update="datatable" listener="#{dataTableController.search(DynamicEntity.AGENT)}" />
+                </p:inputText>
+
+                <p:linkButton icon="pi pi-plus" value="#{m['btn.new']}" outcome="/protected/agent-form"  />
+            </p:panelGrid>
 
             <br/>
             <br/>
 
             <p:dataTable 
                 id="datatable" 
-                value="#{searchController.entities}"
+                value="#{dataTableController.entities}"
                 var="e"
-                emptyMessage="#{searchController.keywordEmpty ? m['datatable.too_many'] : m['datatable.empty']}"
+                emptyMessage="#{dataTableController.keywordEmpty ? m['datatable.too_many'] : m['datatable.empty']}"
                 reflow="true">
 
                 <p:column headerText="#{m['agent.email']}">
@@ -61,7 +70,44 @@
                     <h:outputText value="#{e.phoneNumber}" />
                 </p:column>
 
+                <p:column headerText="#{m['datatable.action']}">
+                    <p:commandButton 
+                        icon="pi pi-pencil" 
+                        actionListener="#{dataTableController.edit(DynamicEntity.AGENT, e.id)}" />
+
+                    &#160;
+
+                    <p:commandButton 
+                        icon="pi pi-trash" 
+                        update="datatable"
+                        actionListener="#{dataTableController.remove(e)}" >
+
+                        <p:confirm 
+                            header="#{m['confirm.remove.title']}" 
+                            message="#{m['confirm.remove.message']}" 
+                            icon="pi pi-exclamation-triangle" />
+
+                    </p:commandButton>
+
+                </p:column>
+
             </p:dataTable>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton 
+                    type="button" 
+                    styleClass="ui-confirmdialog-yes" 
+                    value="#{m['btn.yes']}"
+                    icon="pi pi-check" />
+                
+                <p:commandButton 
+                    type="button" 
+                    styleClass="ui-confirmdialog-no" 
+                    value="#{m['btn.no']}"
+                    icon="pi pi-times" />
+                
+            </p:confirmDialog> 
+
         </h:form>
 
     </ui:define>

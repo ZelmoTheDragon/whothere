@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- Cette page hérite que la structure 'layout.xhtml' -->
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+    xmlns:p="http://primefaces.org/ui"
+    template="/public/templates/layout.xhtml">
+
+    <f:metadata>
+        <f:importConstants type="com.github.zelmothedragon.whothere.DynamicEntity" var="DynamicEntity"/>
+        <f:importConstants type="com.github.zelmothedragon.whothere.common.Gender" var="Gender" />
+    </f:metadata>
+
+    <ui:define name="title">
+        <h1 class="center">
+            <h:outputText value="#{m['agent.title.create']}" />
+        </h1>
+    </ui:define>
+
+    <ui:define name="main">
+        <h:form>
+            <p:panelGrid 
+                columns="3" 
+                layout="flex" 
+                columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-6 p-xl-8, p-col-12 p-md-3 p-xl-2" contentStyleClass="ui-fluid">
+
+                <p:outputLabel for="gender" value="#{m['agent.gender']}" />
+                <p:selectOneMenu id="gender" required="true" value="#{agent.gender}" >
+                    <f:selectItems value="#{Gender.values()}" var="e" itemLabel="#{m[e.name()]}" itemValue="#{e}" />
+                </p:selectOneMenu>
+                <p:message for="gender" />
+
+                <p:outputLabel for="givenName" value="#{m['agent.givenName']}" />
+                <p:inputText id="givenName" required="true" value="#{agent.givenName}" />
+                <p:message for="givenName" />
+
+                <p:outputLabel for="familyName" value="#{m['agent.familyName']}" />
+                <p:inputText id="familyName" required="true" value="#{agent.familyName}" />
+                <p:message for="familyName" />
+
+                <p:outputLabel for="email" value="#{m['agent.email']}" />
+                <p:inputText id="email" required="true" value="#{agent.email}" >
+                    <f:passThroughAttribute name="type" value="email" />
+                </p:inputText>
+                <p:message for="email" />
+
+                <p:outputLabel for="shortRank" value="#{m['agent.shortRank']}" />
+                <p:inputText id="shortRank" required="true" value="#{agent.shortRank}" />
+                <p:message for="shortRank" />
+
+                <p:outputLabel for="rank" value="#{m['agent.rank']}" />
+                <p:inputText id="rank" required="true" value="#{agent.rank}" />
+                <p:message for="rank" />
+
+                <p:outputLabel for="phoneNumber" value="#{m['agent.phoneNumber']}" />
+                <p:inputText id="phoneNumber" required="true" value="#{agent.phoneNumber}" />
+                <p:message for="phoneNumber" />
+
+                <p:commandButton 
+                    id="submit" 
+                    icon="pi pi-save"
+                    validateClient="true"
+                    update="@form"
+                    value="#{m['btn.save']}"
+                    actionListener="#{formController.save(agent)}" />
+                <br/>
+                <br/>
+
+            </p:panelGrid>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+
