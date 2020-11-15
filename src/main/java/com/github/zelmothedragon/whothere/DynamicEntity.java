@@ -3,7 +3,6 @@ package com.github.zelmothedragon.whothere;
 import com.github.zelmothedragon.whothere.common.Agent;
 import com.github.zelmothedragon.whothere.common.Organization;
 import com.github.zelmothedragon.whothere.core.persistence.Identifiable;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -23,8 +22,8 @@ public enum DynamicEntity {
     private final Function<String, Object> identifierConverter;
 
     private final Supplier<Identifiable<?>> constructor;
-
-    private DynamicEntity(
+    
+    DynamicEntity(
             final String typeName,
             final Class<? extends Identifiable<?>> entityClass,
             final Function<String, Object> identifierConverter,

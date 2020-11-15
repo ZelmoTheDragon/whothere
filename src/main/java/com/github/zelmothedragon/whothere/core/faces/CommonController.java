@@ -1,6 +1,7 @@
 package com.github.zelmothedragon.whothere.core.faces;
 
 import com.github.zelmothedragon.whothere.DynamicEntity;
+import com.github.zelmothedragon.whothere.DynamicView;
 import com.github.zelmothedragon.whothere.core.persistence.Identifiable;
 import com.github.zelmothedragon.whothere.core.service.CommonService;
 import java.io.Serializable;
@@ -25,6 +26,11 @@ public class CommonController implements Serializable {
      */
     @Inject
     CommonService service;
+
+    /**
+     * Type dynamique de l'entité métier.
+     */
+    private DynamicEntity entityType;
 
     /**
      * Mot clef pour la recherche.
@@ -52,10 +58,8 @@ public class CommonController implements Serializable {
 
     /**
      * Rechercher un élément dans le site.
-     *
-     * @param entityType Type dynamique de l'entité métier
      */
-    public void search(final DynamicEntity entityType) {
+    public void search() {
         if (isKeywordEmpty()) {
             this.entities.clear();
         } else {
@@ -66,29 +70,48 @@ public class CommonController implements Serializable {
     }
 
     /**
-     * Enregister une entité. (Ajout ou modification)
+     * Enregister une entité.(Ajout ou modification)
+     *
+     * @return
      */
-    public void save() {
-        System.out.println("SAVE: " + entity);
+    public String save() {
         this.service.save(entity);
+
+        return DynamicView
+                .fromEntityType(entityType)
+                .map(DynamicView::getDatatable)
+                .orElse(Page.INDEX)
+                .redirect();
     }
 
     /**
      * Passer le formulaire en mode édition.
+     *
      * @param entity Entité à modifier
+     * @return
      */
-    public void edit(final Identifiable<?> entity) {
+    public String edit(final Identifiable<?> entity) {
         this.entity = entity;
-        System.out.println("EDIT: " + entity);
+
+        return DynamicView
+                .fromEntityType(entityType)
+                .map(DynamicView::getForm)
+                .orElse(Page.INDEX)
+                .redirect();
     }
 
     /**
      * Passer le formulaire en mode création
-     * @param entityType Type de l'entité
+     *
+     * @return
      */
-    public void create(final DynamicEntity entityType) {
+    public String create() {
         this.entity = entityType.newInstance();
-        System.out.println("CREATE: " + entity);
+        return DynamicView
+                .fromEntityType(entityType)
+                .map(DynamicView::getForm)
+                .orElse(Page.INDEX)
+                .redirect();
     }
 
     /**
@@ -116,6 +139,14 @@ public class CommonController implements Serializable {
     // ------------------------------
     // Accesseurs & Mutateurs
     // ------------------------------
+    public DynamicEntity getEntityType() {
+        return entityType;
+    }
+
+    public void setEntityType(DynamicEntity entityType) {
+        this.entityType = entityType;
+    }
+
     public String getKeyword() {
         return keyword;
     }

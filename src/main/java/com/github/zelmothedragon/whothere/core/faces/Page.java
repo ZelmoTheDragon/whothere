@@ -11,7 +11,9 @@ public enum Page {
 
     INDEX("/index"),
     LOGIN("/login"),
-    HOME("/home");
+    HOME("/home"),
+    DATATABLE_AGENT("/protected/agent"),
+    FORM_AGENT("/protected/agent-form");
 
     /**
      * Extension réelle des pages.

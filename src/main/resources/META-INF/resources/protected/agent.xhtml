@@ -10,6 +10,7 @@
 
     <f:metadata>
         <f:importConstants type="com.github.zelmothedragon.whothere.DynamicEntity" var="DynamicEntity"/>
+        <f:viewAction action="#{commonController.setEntityType(DynamicEntity.AGENT)}" />
     </f:metadata>
 
     <ui:define name="title">
@@ -30,17 +31,14 @@
                     id="search" 
                     placeholder="#{m['datatable.filter']}"
                     value="#{commonController.keyword}">
-                    <p:ajax event="keyup" update="datatable" listener="#{commonController.search(DynamicEntity.AGENT)}" />
+                    <p:ajax event="keyup" update="datatable" listener="#{commonController.search()}" />
                 </p:inputText>
 
                 <p:commandButton 
                     icon="pi pi-plus" 
                     value="#{m['btn.new']}" 
-                    action="/protected/agent-form">
+                    action="#{commonController.create()}" />
 
-                    <p:ajax event="click" listener="#{commonController.create(DynamicEntity.AGENT)}" />
-
-                </p:commandButton>
             </p:panelGrid>
 
             <br/>
@@ -78,9 +76,10 @@
                 </p:column>
 
                 <p:column headerText="#{m['datatable.action']}">
-                    <p:commandButton icon="pi pi-pencil" action="/protected/agent-form">
-                        <p:ajax event="click" listener="#{commonController.edit(e)}" />
-                    </p:commandButton>
+
+                    <p:commandButton 
+                        icon="pi pi-pencil" 
+                        action="#{commonController.edit(e)}" />
 
                     &#160;
 

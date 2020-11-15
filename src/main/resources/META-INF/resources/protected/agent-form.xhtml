@@ -64,13 +64,16 @@
                     validateClient="true"
                     update="@form"
                     value="#{m['btn.save']}"
-                    action="/protected/agent">
+                    action="#{commonController.save()}" />
 
-                    <p:ajax event="click" listener="#{commonController.save()}" />
-
-                </p:commandButton>
                 <br/>
                 <br/>
+
+                <p:linkButton 
+                    id="back" 
+                    icon="pi pi-undo"
+                    value="#{m['btn.back']}"
+                    outcome="/protected/agent" />
 
             </p:panelGrid>
         </h:form>
