@@ -1,7 +1,6 @@
 package com.github.zelmothedragon.whothere.common;
 
 import com.github.zelmothedragon.whothere.core.persistence.AbstractEntity;
-import javax.enterprise.context.Dependent;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Basic;
@@ -21,7 +20,6 @@ import javax.validation.constraints.Size;
  *
  * @author MOSELLE Maxime
  */
-@Dependent
 @Entity
 @Table(name = "organization")
 @Access(AccessType.FIELD)

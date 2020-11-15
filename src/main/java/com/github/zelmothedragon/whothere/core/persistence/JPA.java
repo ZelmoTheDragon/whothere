@@ -263,7 +263,11 @@ public final class JPA {
                     .collect(Collectors.toList());
 
             List<Order> orders;
-            if (pagination.isAscending()) {
+            if (orderByAttributes.isEmpty() && pagination.isAscending()) {
+                orders = List.of(cb.asc(root));
+            } else if (orderByAttributes.isEmpty() && !pagination.isAscending()) {
+                orders = List.of(cb.desc(root));
+            } else if (pagination.isAscending()) {
                 orders = orderByAttributes
                         .stream()
                         .map(a -> cb.asc(root.get(a)))

@@ -12,7 +12,7 @@ import javax.persistence.Converter;
  *
  * @author MOSELLE Maxime
  */
-//@Converter(autoApply = true)
+@Converter(autoApply = true)
 public class UUIDConverter implements AttributeConverter<UUID, String> {
 
     /**

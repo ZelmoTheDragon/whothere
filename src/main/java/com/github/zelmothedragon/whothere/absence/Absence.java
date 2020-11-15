@@ -3,7 +3,6 @@ package com.github.zelmothedragon.whothere.absence;
 import com.github.zelmothedragon.whothere.common.Agent;
 import com.github.zelmothedragon.whothere.core.persistence.AbstractEntity;
 import java.time.LocalDateTime;
-import javax.enterprise.context.Dependent;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
@@ -21,7 +20,6 @@ import javax.validation.constraints.NotNull;
  *
  * @author MOSELLE Maxime
  */
-@Dependent
 @Entity
 @Table(
         name = "absence",

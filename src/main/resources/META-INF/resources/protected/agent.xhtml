@@ -29,11 +29,18 @@
                 <p:inputText 
                     id="search" 
                     placeholder="#{m['datatable.filter']}"
-                    value="#{dataTableController.keyword}">
-                    <p:ajax event="keyup" update="datatable" listener="#{dataTableController.search(DynamicEntity.AGENT)}" />
+                    value="#{commonController.keyword}">
+                    <p:ajax event="keyup" update="datatable" listener="#{commonController.search(DynamicEntity.AGENT)}" />
                 </p:inputText>
 
-                <p:linkButton icon="pi pi-plus" value="#{m['btn.new']}" outcome="/protected/agent-form"  />
+                <p:commandButton 
+                    icon="pi pi-plus" 
+                    value="#{m['btn.new']}" 
+                    action="/protected/agent-form">
+
+                    <p:ajax event="click" listener="#{commonController.create(DynamicEntity.AGENT)}" />
+
+                </p:commandButton>
             </p:panelGrid>
 
             <br/>
@@ -41,9 +48,9 @@
 
             <p:dataTable 
                 id="datatable" 
-                value="#{dataTableController.entities}"
+                value="#{commonController.entities}"
                 var="e"
-                emptyMessage="#{dataTableController.keywordEmpty ? m['datatable.too_many'] : m['datatable.empty']}"
+                emptyMessage="#{commonController.keywordEmpty ? m['datatable.too_many'] : m['datatable.empty']}"
                 reflow="true">
 
                 <p:column headerText="#{m['agent.email']}">
@@ -71,16 +78,16 @@
                 </p:column>
 
                 <p:column headerText="#{m['datatable.action']}">
-                    <p:commandButton 
-                        icon="pi pi-pencil" 
-                        actionListener="#{dataTableController.edit(DynamicEntity.AGENT, e.id)}" />
+                    <p:commandButton icon="pi pi-pencil" action="/protected/agent-form">
+                        <p:ajax event="click" listener="#{commonController.edit(e)}" />
+                    </p:commandButton>
 
                     &#160;
 
                     <p:commandButton 
                         icon="pi pi-trash" 
                         update="datatable"
-                        actionListener="#{dataTableController.remove(e)}" >
+                        actionListener="#{commonController.remove(e)}" >
 
                         <p:confirm 
                             header="#{m['confirm.remove.title']}" 
@@ -99,13 +106,13 @@
                     styleClass="ui-confirmdialog-yes" 
                     value="#{m['btn.yes']}"
                     icon="pi pi-check" />
-                
+
                 <p:commandButton 
                     type="button" 
                     styleClass="ui-confirmdialog-no" 
                     value="#{m['btn.no']}"
                     icon="pi pi-times" />
-                
+
             </p:confirmDialog> 
 
         </h:form>

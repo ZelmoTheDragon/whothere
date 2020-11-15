@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -17,8 +17,8 @@ import javax.inject.Named;
  * @author MOSELLE Maxime
  */
 @Named
-@ViewScoped
-public class DataTableController implements Serializable {
+@SessionScoped
+public class CommonController implements Serializable {
 
     /**
      * Service métier générique.
@@ -37,10 +37,15 @@ public class DataTableController implements Serializable {
     private List<? extends Identifiable<?>> entities;
 
     /**
-     * Constructeur d'injection. Requis pour le fonctionnement des technologies
-     * de Java EE.
+     * Entité en cours de création ou modification.
      */
-    public DataTableController() {
+    private Identifiable<?> entity;
+
+    /**
+     * Constructeur d'injection. Requis pour le fonctionnement des technologies
+     * de Jakarta EE.
+     */
+    public CommonController() {
         this.entities = new ArrayList<>();
         // Ne pas appeler explicitement.
     }
@@ -61,6 +66,42 @@ public class DataTableController implements Serializable {
     }
 
     /**
+     * Enregister une entité. (Ajout ou modification)
+     */
+    public void save() {
+        System.out.println("SAVE: " + entity);
+        this.service.save(entity);
+    }
+
+    /**
+     * Passer le formulaire en mode édition.
+     * @param entity Entité à modifier
+     */
+    public void edit(final Identifiable<?> entity) {
+        this.entity = entity;
+        System.out.println("EDIT: " + entity);
+    }
+
+    /**
+     * Passer le formulaire en mode création
+     * @param entityType Type de l'entité
+     */
+    public void create(final DynamicEntity entityType) {
+        this.entity = entityType.newInstance();
+        System.out.println("CREATE: " + entity);
+    }
+
+    /**
+     * Supprimer l'entité métier.
+     *
+     * @param entity Entité à supprimer
+     */
+    public void remove(final Identifiable<?> entity) {
+        this.service.remove(entity);
+        this.entities.remove(entity);
+    }
+
+    /**
      * Indiquer si le mot clef est vide.
      *
      * @return La valeur {@code true} si le mot clef est nul, vide ou ne
@@ -70,23 +111,6 @@ public class DataTableController implements Serializable {
         return Objects.isNull(keyword)
                 || keyword.isBlank()
                 || keyword.length() <= 1;
-    }
-
-    /**
-     * Accéder au formulaire d'édition de l'entité métier.
-     *
-     * @param entityType Type dynamique de l'entité métier
-     */
-    public void edit(final DynamicEntity entityType, final Object id) {
-
-    }
-
-    /**
-     * Supprimer l'entité métier.
-     */
-    public void remove(final Identifiable<?> entity) {
-        this.service.remove(entity);
-        this.entities.remove(entity);
     }
 
     // ------------------------------
@@ -106,6 +130,14 @@ public class DataTableController implements Serializable {
 
     public void setEntities(List<? extends Identifiable<?>> entities) {
         this.entities = entities;
+    }
+
+    public Identifiable<?> getEntity() {
+        return entity;
+    }
+
+    public void setEntity(Identifiable<?> entity) {
+        this.entity = entity;
     }
 
 }

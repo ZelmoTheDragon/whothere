@@ -3,7 +3,6 @@ package com.github.zelmothedragon.whothere.security;
 import com.github.zelmothedragon.whothere.core.persistence.AbstractEntity;
 import java.util.HashSet;
 import java.util.Set;
-import javax.enterprise.context.Dependent;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CollectionTable;
@@ -23,7 +22,6 @@ import javax.validation.constraints.Size;
  *
  * @author MOSELLE Maxime
  */
-@Dependent
 @Entity
 @Table(name = "account")
 @Access(AccessType.FIELD)

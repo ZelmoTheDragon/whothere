@@ -31,6 +31,7 @@ public class SecurityController {
      * Connecter un utilisateur à partir des informations du formulaire.
      *
      * @param form Formulaire de connexion.
+     * @return 
      */
     public String login(final Credentials form) {
 

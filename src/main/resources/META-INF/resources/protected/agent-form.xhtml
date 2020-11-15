@@ -27,35 +27,35 @@
                 columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-6 p-xl-8, p-col-12 p-md-3 p-xl-2" contentStyleClass="ui-fluid">
 
                 <p:outputLabel for="gender" value="#{m['agent.gender']}" />
-                <p:selectOneMenu id="gender" required="true" value="#{agent.gender}" >
+                <p:selectOneMenu id="gender" required="true" value="#{commonController.entity.gender}" >
                     <f:selectItems value="#{Gender.values()}" var="e" itemLabel="#{m[e.name()]}" itemValue="#{e}" />
                 </p:selectOneMenu>
                 <p:message for="gender" />
 
                 <p:outputLabel for="givenName" value="#{m['agent.givenName']}" />
-                <p:inputText id="givenName" required="true" value="#{agent.givenName}" />
+                <p:inputText id="givenName" required="true" value="#{commonController.entity.givenName}" />
                 <p:message for="givenName" />
 
                 <p:outputLabel for="familyName" value="#{m['agent.familyName']}" />
-                <p:inputText id="familyName" required="true" value="#{agent.familyName}" />
+                <p:inputText id="familyName" required="true" value="#{commonController.entity.familyName}" />
                 <p:message for="familyName" />
 
                 <p:outputLabel for="email" value="#{m['agent.email']}" />
-                <p:inputText id="email" required="true" value="#{agent.email}" >
+                <p:inputText id="email" required="true" value="#{commonController.entity.email}" >
                     <f:passThroughAttribute name="type" value="email" />
                 </p:inputText>
                 <p:message for="email" />
 
                 <p:outputLabel for="shortRank" value="#{m['agent.shortRank']}" />
-                <p:inputText id="shortRank" required="true" value="#{agent.shortRank}" />
+                <p:inputText id="shortRank" required="true" value="#{commonController.entity.shortRank}" />
                 <p:message for="shortRank" />
 
                 <p:outputLabel for="rank" value="#{m['agent.rank']}" />
-                <p:inputText id="rank" required="true" value="#{agent.rank}" />
+                <p:inputText id="rank" required="true" value="#{commonController.entity.rank}" />
                 <p:message for="rank" />
 
                 <p:outputLabel for="phoneNumber" value="#{m['agent.phoneNumber']}" />
-                <p:inputText id="phoneNumber" required="true" value="#{agent.phoneNumber}" />
+                <p:inputText id="phoneNumber" required="true" value="#{commonController.entity.phoneNumber}" />
                 <p:message for="phoneNumber" />
 
                 <p:commandButton 
@@ -64,7 +64,11 @@
                     validateClient="true"
                     update="@form"
                     value="#{m['btn.save']}"
-                    actionListener="#{formController.save(agent)}" />
+                    action="/protected/agent">
+
+                    <p:ajax event="click" listener="#{commonController.save()}" />
+
+                </p:commandButton>
                 <br/>
                 <br/>
 
