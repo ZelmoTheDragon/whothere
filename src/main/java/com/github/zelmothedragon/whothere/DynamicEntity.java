@@ -1,7 +1,7 @@
 package com.github.zelmothedragon.whothere;
 
-import com.github.zelmothedragon.whothere.common.Agent;
-import com.github.zelmothedragon.whothere.common.Organization;
+import com.github.zelmothedragon.whothere.agent.Agent;
+import com.github.zelmothedragon.whothere.agent.Organization;
 import com.github.zelmothedragon.whothere.core.persistence.Identifiable;
 import java.util.List;
 import java.util.Objects;

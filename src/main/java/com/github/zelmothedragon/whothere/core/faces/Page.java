@@ -1,6 +1,8 @@
 package com.github.zelmothedragon.whothere.core.faces;
 
+import java.io.IOException;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Enumération des pages disponibles.
@@ -52,6 +54,23 @@ public enum Page {
                 extension,
                 REDIRECTION
         );
+    }
+
+    /**
+     * Recharger la page courante.
+     */
+    public static void reload() {
+        try {
+            var externalContext = FacesContext
+                    .getCurrentInstance()
+                    .getExternalContext();
+
+            var request = (HttpServletRequest) externalContext.getRequest();
+
+            externalContext.redirect(request.getRequestURI());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**

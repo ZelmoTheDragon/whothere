@@ -60,7 +60,7 @@
         <hibernate-jpamodelgen.version>5.4.22.Final</hibernate-jpamodelgen.version>
         
         <!-- Web -->
-        <myfaces.version>2.3-next-M2</myfaces.version>
+        <myfaces.version>2.3-next-M4</myfaces.version>
         <primefaces.version>8.0</primefaces.version>
         <primeflex.version>2.0.0</primeflex.version>
         
@@ -86,12 +86,7 @@
             <!-- Quarkus JSF (UNSTABLE) -->
             <dependency>
                 <groupId>org.apache.myfaces.core.extensions.quarkus</groupId>
-                <artifactId>myfaces-quarkus-deployment</artifactId>
-                <version>${myfaces.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.myfaces.core.extensions.quarkus</groupId>
-                <artifactId>myfaces-quarkus-runtime</artifactId>
+                <artifactId>myfaces-quarkus</artifactId>
                 <version>${myfaces.version}</version>
             </dependency>
             <dependency>
@@ -100,7 +95,7 @@
                 <version>${primefaces.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.webjars.bowergithub.primefaces</groupId>
+                <groupId>org.webjars.npm</groupId>
                 <artifactId>primeflex</artifactId>
                 <version>${primeflex.version}</version>
             </dependency>
@@ -149,15 +144,9 @@
             <artifactId>quarkus-webjars-locator</artifactId>
             <scope>compile</scope>
         </dependency>
-        
         <dependency>
             <groupId>org.apache.myfaces.core.extensions.quarkus</groupId>
-            <artifactId>myfaces-quarkus-deployment</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.myfaces.core.extensions.quarkus</groupId>
-            <artifactId>myfaces-quarkus-runtime</artifactId>
+            <artifactId>myfaces-quarkus</artifactId>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -166,7 +155,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.webjars.bowergithub.primefaces</groupId>
+            <groupId>org.webjars.npm</groupId>
             <artifactId>primeflex</artifactId>
             <scope>compile</scope>
         </dependency>

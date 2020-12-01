@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Locale;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -26,12 +27,18 @@ public class Internationalization implements Serializable {
     private Locale currentLocale;
 
     /**
+     * Contexte de <i>Jakarta Faces</i>.
+     */
+    @Inject
+    private FacesContext context;
+
+    /**
      * Constructeur par défaut. Requis pour le fonctionnement des technologies
      * d'entreprise.
      */
     public Internationalization() {
         this.currentLocale = Locale.FRENCH;
-         // Ne pas appeler explicitement.
+        // Ne pas appeler explicitement.
     }
 
     /**
@@ -46,8 +53,7 @@ public class Internationalization implements Serializable {
             case "EN":
             case "en":
                 currentLocale = Locale.ENGLISH;
-                FacesContext
-                        .getCurrentInstance()
+                context
                         .getViewRoot()
                         .setLocale(Locale.ENGLISH);
                 break;
@@ -56,20 +62,19 @@ public class Internationalization implements Serializable {
             case "fr":
             default:
                 currentLocale = Locale.FRENCH;
-                FacesContext
-                        .getCurrentInstance()
+                context
                         .getViewRoot()
                         .setLocale(Locale.FRENCH);
                 break;
         }
-        
+
         System.out.println("CHANGING LANG. : " + currentLocale);
+        Page.reload();
     }
 
     // ------------------------------
     // Accesseurs & Mutateurs
     // ------------------------------
-    
     public Locale getCurrentLocale() {
         return currentLocale;
     }

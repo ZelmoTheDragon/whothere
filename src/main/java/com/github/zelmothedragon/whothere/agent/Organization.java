@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whothere.common;
+package com.github.zelmothedragon.whothere.agent;
 
 import com.github.zelmothedragon.whothere.core.persistence.AbstractEntity;
 import javax.persistence.Access;

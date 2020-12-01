@@ -1,6 +1,6 @@
 package com.github.zelmothedragon.whothere.absence;
 
-import com.github.zelmothedragon.whothere.common.Agent;
+import com.github.zelmothedragon.whothere.agent.Agent;
 import com.github.zelmothedragon.whothere.core.persistence.AbstractEntity;
 import java.time.LocalDateTime;
 import javax.persistence.Access;

@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whothere.common;
+package com.github.zelmothedragon.whothere.agent;
 
 /**
  * Genre d'un agent.
