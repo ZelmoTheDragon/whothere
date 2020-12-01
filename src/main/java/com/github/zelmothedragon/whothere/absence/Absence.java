@@ -67,10 +67,9 @@ public class Absence extends AbstractEntity {
 
     /**
      * Constructeur par défaut. Requis pour le fonctionnement des technologies
-     * de <i>Jakarta EE</i>.
+     * d'entreprise.
      */
     public Absence() {
-        // Ne pas appeler explicitement.
     }
 
     // ------------------------------

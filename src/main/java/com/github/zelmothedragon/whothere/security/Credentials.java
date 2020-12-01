@@ -29,7 +29,7 @@ public class Credentials {
 
     /**
      * Constructeur par défaut. Requis pour le fonctionnement des technologies
-     * de <i>Jakarta EE</i>.
+     * d'entreprise.
      */
     public Credentials() {
         // Ne pas appeler explicitement.

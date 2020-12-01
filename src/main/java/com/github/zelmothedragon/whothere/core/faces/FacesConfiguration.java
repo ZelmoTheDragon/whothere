@@ -16,7 +16,7 @@ public class FacesConfiguration {
 
     /**
      * Constructeur par défaut. Requis pour le fonctionnement des technologies
-     * de <i>Jakarta EE</i>.
+     * d'entreprise.
      */
     public FacesConfiguration() {
         // Ne pas appeler explicitement.

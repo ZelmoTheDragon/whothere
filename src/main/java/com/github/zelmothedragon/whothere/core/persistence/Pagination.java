@@ -17,7 +17,7 @@ public class Pagination implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Nombres d'occurence par page.
+     * Nombres d'occurrence par page.
      */
     private static final int PAGINATION_LIMIT = 100;
 
@@ -52,12 +52,12 @@ public class Pagination implements Serializable {
     private final boolean ascending;
 
     /**
-     * Indique que la requête n'a pas de limite d'occurence.
+     * Indique que la requête n'a pas de limite d'occurrence.
      */
     private final boolean noLimit;
 
     /**
-     * Constuire un modèle de données pour la pagniation.
+     * Construire un modèle de données pour la pagination.
      *
      * @param keyword Mot-clef pour la recherche
      * @param pageNumber Numéro de page

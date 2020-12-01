@@ -68,11 +68,10 @@ public class Account extends AbstractEntity {
 
     /**
      * Constructeur par défaut. Requis pour le fonctionnement des technologies
-     * de <i>Jakarta EE</i>.
+     * d'entreprise.
      */
     public Account() {
         this.roles = new HashSet<>();
-        // Ne pas appeler explicitement.
     }
 
     // ------------------------------

@@ -45,7 +45,7 @@ public abstract class AbstractEntity implements Identifiable<UUID>, Serializable
 
     /**
      * Constructeur par défaut. Requis pour le fonctionnement des technologies
-     * de <i>Jakarta EE</i>.
+     * d'entreprise.
      */
     protected AbstractEntity() {
         this.id = UUID.randomUUID();
@@ -92,13 +92,14 @@ public abstract class AbstractEntity implements Identifiable<UUID>, Serializable
     }
 
     @Override
-    public void checkId() {
+    public boolean synchronizeId() {
         if (Objects.isNull(id)) {
             id = UUID.randomUUID();
         }
         if (Objects.isNull(version)) {
             version = 0L;
         }
+        return true;
     }
 
     // ------------------------------

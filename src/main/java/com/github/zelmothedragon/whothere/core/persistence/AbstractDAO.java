@@ -22,8 +22,8 @@ public abstract class AbstractDAO<E extends Identifiable<K>, K>
     private static final long serialVersionUID = 1L;
 
     /**
-     * Constructeur d'injection.Requis pour le fonctionnement des technologies
-     * de <i>Jakarta EE</i>.
+     * Constructeur par défaut. Requis pour le fonctionnement des technologies
+     * d'entreprise.
      */
     protected AbstractDAO() {
         // Ne pas appeler explicitement.

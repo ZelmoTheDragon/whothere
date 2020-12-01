@@ -29,7 +29,7 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#contains(Object)
+     * @see Repository#contains
      * @param entity Entité persistante
      * @return La valeur {@code true} si l'entité existe, sinon la valeur
      * {@code false} est retournée
@@ -56,7 +56,7 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#contains(Object)
+     * @see Repository#contains
      * @param entityClass Classe de l'entité persistante
      * @param id Identifiant unique
      * @return La valeur {@code true} si l'entité existe, sinon la valeur
@@ -90,7 +90,7 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#containsAll(Collection)
+     * @see Repository#containsAll
      * @param entities Collection d'entités persistantes
      * @return La valeur {@code true} si toute les entités de la collection
      * existe, sinon la valeur {@code false} est retournée
@@ -100,7 +100,7 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#isEmpty()
+     * @see Repository#isEmpty
      * @param entityClass Classe de l'entité persistante
      * @return La valeur {@code true} si aucune occurrence existe, sinon la
      * valeur {@code false} est retournée
@@ -110,7 +110,7 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#size()
+     * @see Repository#size
      * @param entityClass Classe de l'entité persistante
      * @return Le nombre d'occurrence
      */
@@ -124,7 +124,7 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#add(Identifiable)
+     * @see Repository#add
      * @param <E> Type d'entité persistante
      * @param entity Entité persistante
      * @return L'entité persisté
@@ -142,10 +142,10 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#addAll(Collection)
+     * @see Repository#addAll
      * @param <E> Type d'entité persistante
      * @param entities Collection d'entités persistantes
-     * @return Les entités persistées
+     * @return Les entités enregistrées
      */
     public static <E extends Identifiable<?>> List<E> addAll(final Collection<E> entities) {
         return entities
@@ -155,7 +155,7 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#remove(Identifiable)
+     * @see Repository#remove
      * @param entity Entité persistante
      */
     public static void remove(final Identifiable<?> entity) {
@@ -167,7 +167,7 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#remove(Object)
+     * @see Repository#remove
      * @param entityClass Classe de l'entité persistante
      * @param id Identifiant unique
      */
@@ -179,7 +179,7 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#removeAll(Collection)
+     * @see Repository#removeAll
      * @param entities Collection d'entités persistantes
      */
     public static void removeAll(final Collection<? extends Identifiable<?>> entities) {
@@ -187,7 +187,7 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#get(Object)
+     * @see Repository#get
      * @param <E> Type d'entité persistante
      * @param entityClass Classe de l'entité persistante
      * @param id Clef primaire
@@ -207,7 +207,7 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#get()
+     * @see Repository#get
      * @param <E> Type d'entité persistante
      * @param entityClass Classe de l'entité persistante
      * @return Une liste d'entités persistantes
@@ -221,7 +221,7 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#get(Pagination)
+     * @see Repository#get
      * @param <E> Type d'entité persistante
      * @param entityClass Classe de l'entité persistante
      * @param pagination Critère de filtrage pour la pagination
@@ -297,7 +297,7 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#get(String)
+     * @see Repository#get
      * @param <E> Type d'entité persistante
      * @param entityClass Classe de l'entité persistante
      * @param keyword Mot clef pour la recherche

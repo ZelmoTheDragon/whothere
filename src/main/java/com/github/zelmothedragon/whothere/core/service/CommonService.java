@@ -20,14 +20,14 @@ public class CommonService {
 
     /**
      * Constructeur par défaut. Requis pour le fonctionnement des technologies
-     * de <i>Jakarta EE</i>.
+     * d'entreprise.
      */
     public CommonService() {
         // Ne pas appeler explicitement.
     }
 
     /**
-     * @see Service#find(Object)
+     * @see Service#find
      * @param <E> Type générique de l'entité
      * @param entityClass Classe de l'entité
      * @param id Identifiant unique
@@ -42,7 +42,7 @@ public class CommonService {
     }
 
     /**
-     * @see Service#find()
+     * @see Service#find
      * @param <E> Type générique de l'entité
      * @param entityClass Classe de l'entité
      * @return Une liste des entités métiers
@@ -52,7 +52,7 @@ public class CommonService {
     }
 
     /**
-     * @see Service#filter(Pagination)
+     * @see Service#filter
      * @param <E> Type générique de l'entité
      * @param entityClass Classe de l'entité
      * @param pagination Critère de pagination
@@ -66,7 +66,7 @@ public class CommonService {
     }
 
     /**
-     * @see Service#filter(String)
+     * @see Service#filter
      * @param <E> Type générique de l'entité
      * @param entityClass Classe de l'entité
      * @param keyword Mot clef pour la recherche
@@ -80,7 +80,7 @@ public class CommonService {
     }
 
     /**
-     * @see Service#exists(Identifiable)
+     * @see Service#exists
      * @param entity Entité métier
      * @return La valeur {@code true} si l'entité existe, sinon la valeur
      * {@code false} est retournée
@@ -90,7 +90,7 @@ public class CommonService {
     }
 
     /**
-     * @see Service#exists(Object)
+     * @see Service#exists
      * @param entityClass Classe de l'entité
      * @param id Identifiant unique
      * @return La valeur {@code true} si l'entité existe, sinon la valeur
@@ -104,18 +104,18 @@ public class CommonService {
     }
 
     /**
-     * @see Service#save(Identifiable)
+     * @see Service#save
      * @param <E> Type générique de l'entité
      * @param entity Entité métier
-     * @return L'entité sauvegarée
+     * @return L'entité sauvegardée
      */
     public <E extends Identifiable<?>> E save(final E entity) {
-        entity.checkId();
+        entity.synchronizeId();
         return JPA.add(entity);
     }
 
     /**
-     * @see Service#remove(Identifiable)
+     * @see Service#remove
      * @param entity Entité métier
      */
     public void remove(final Identifiable<?> entity) {
@@ -123,7 +123,7 @@ public class CommonService {
     }
 
     /**
-     * @see Service#remove(Object)
+     * @see Service#remove
      * @param entityClass Classe de l'entité
      * @param id Identifiant unique
      */

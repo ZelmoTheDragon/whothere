@@ -9,7 +9,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 /**
- * Classe de configuration du contexte <i>Servlet</i>.
+ * Classe de configuration du contexte web.
  *
  * @author MOSELLE Maxime
  */
@@ -18,7 +18,7 @@ public class StartupListener implements ServletContextListener {
 
     /**
      * Constructeur par défaut. Requis pour le fonctionnement des technologies
-     * de <i>Jakarta EE</i>.
+     * d'entreprise.
      */
     public StartupListener() {
         // Ne pas appeler explicitement.

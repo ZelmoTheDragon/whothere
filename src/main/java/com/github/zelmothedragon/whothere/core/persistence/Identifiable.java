@@ -25,8 +25,10 @@ public interface Identifiable<K> {
     void setId(K id);
 
     /**
-     * Vérifier l'identifiant de cette entité. Si l'identifiant est inexistant,
-     * il est alors généré.
+     * Synchroniser l'identifiant unique avec le contexte de persistance.
+     *
+     * @return La valeur {@code true} si cette instance possède son identifiant
+     * unique synchronisé, sinon la valeur {@code false} est retournée
      */
-    void checkId();
+    boolean synchronizeId();
 }

@@ -21,7 +21,7 @@ public class SecurityController {
 
     /**
      * Constructeur par défaut. Requis pour le fonctionnement des technologies
-     * de <i>Jakarta EE</i>.
+     * d'entreprise.
      */
     public SecurityController() {
         // Ne pas appeler explicitement.

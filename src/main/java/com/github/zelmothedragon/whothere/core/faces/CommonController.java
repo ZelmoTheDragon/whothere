@@ -48,8 +48,8 @@ public class CommonController implements Serializable {
     private Identifiable<?> entity;
 
     /**
-     * Constructeur d'injection. Requis pour le fonctionnement des technologies
-     * de Jakarta EE.
+     * Constructeur par défaut. Requis pour le fonctionnement des technologies
+     * d'entreprise.
      */
     public CommonController() {
         this.entities = new ArrayList<>();
@@ -70,7 +70,7 @@ public class CommonController implements Serializable {
     }
 
     /**
-     * Enregister une entité.(Ajout ou modification)
+     * Enregistrer une entité.(Ajout ou modification)
      *
      * @return
      */

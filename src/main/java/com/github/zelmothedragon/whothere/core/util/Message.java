@@ -16,7 +16,7 @@ public final class Message {
     private static final String BASE_NAME = "Messages";
 
     /**
-     * Constructeur interne.
+     * Constructeur interne. Pas d'instanciation.
      */
     private Message() {
         throw new UnsupportedOperationException("Instance not allowed");

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Entrepôt de données. Le nommage des méthodes est inspirées de
+ * Entrepôt de données. Le nom des méthodes est inspirées de
  * {@link java.util.Collection}.
  *
  * @param <E> Type d'entité persistante
