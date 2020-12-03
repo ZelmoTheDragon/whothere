@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whothere.core.faces;
+package com.github.zelmothedragon.whothere.common.faces;
 
 import java.util.ResourceBundle;
 import javax.faces.application.ProjectStage;

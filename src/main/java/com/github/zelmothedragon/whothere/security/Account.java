@@ -1,6 +1,6 @@
 package com.github.zelmothedragon.whothere.security;
 
-import com.github.zelmothedragon.whothere.core.persistence.AbstractEntity;
+import com.github.zelmothedragon.whothere.common.persistence.AbstractModel;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Access;
@@ -25,7 +25,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "account")
 @Access(AccessType.FIELD)
-public class Account extends AbstractEntity {
+public class Account extends AbstractModel {
 
     /**
      * Numéro de série.
@@ -64,7 +64,7 @@ public class Account extends AbstractEntity {
             joinColumns = @JoinColumn(name = "account_id", nullable = false)
     )
     @Column(name = "role_name", nullable = false)
-    private Set<@NotEmpty @Size(max = 255) String> roles;
+    private Set<@NotBlank @Size(max = 255) String> roles;
 
     /**
      * Constructeur par défaut. Requis pour le fonctionnement des technologies

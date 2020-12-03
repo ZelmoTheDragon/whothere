@@ -1,6 +1,6 @@
 package com.github.zelmothedragon.whothere.absence;
 
-import com.github.zelmothedragon.whothere.core.persistence.AbstractEntity;
+import com.github.zelmothedragon.whothere.common.persistence.AbstractModel;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "state_of_absence")
 @Access(AccessType.FIELD)
-public class State extends AbstractEntity {
+public class State extends AbstractModel {
 
     /**
      * Numéro de série.

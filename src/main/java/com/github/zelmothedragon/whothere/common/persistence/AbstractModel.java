@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whothere.core.persistence;
+package com.github.zelmothedragon.whothere.common.persistence;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
  */
 @MappedSuperclass
 @Access(AccessType.FIELD)
-public abstract class AbstractEntity implements Identifiable<UUID>, Serializable {
+public abstract class AbstractModel implements Serializable {
 
     /**
      * Numéro de série.
@@ -47,7 +47,7 @@ public abstract class AbstractEntity implements Identifiable<UUID>, Serializable
      * Constructeur par défaut. Requis pour le fonctionnement des technologies
      * d'entreprise.
      */
-    protected AbstractEntity() {
+    protected AbstractModel() {
         this.id = UUID.randomUUID();
         this.version = 0L;
         // Ne pas appeler explicitement.
@@ -64,10 +64,10 @@ public abstract class AbstractEntity implements Identifiable<UUID>, Serializable
         final boolean eq;
         if (this == obj) {
             eq = true;
-        } else if (!(obj instanceof AbstractEntity)) {
+        } else if (!(obj instanceof AbstractModel)) {
             eq = false;
         } else {
-            var other = (AbstractEntity) obj;
+            var other = (AbstractModel) obj;
             eq = Objects.equals(this.id, other.id)
                     && Objects.equals(this.version, other.version);
         }
@@ -91,26 +91,28 @@ public abstract class AbstractEntity implements Identifiable<UUID>, Serializable
         );
     }
 
-    @Override
-    public boolean synchronizeId() {
-        if (Objects.isNull(id)) {
-            id = UUID.randomUUID();
-        }
-        if (Objects.isNull(version)) {
-            version = 0L;
-        }
-        return true;
+    // ------------------------------
+    // Persistance
+    // ------------------------------
+    public <E> E save() {
+        return (E) Repository.of().add(this);
+    }
+
+    public void remove() {
+        Repository.of().remove(this);
+    }
+
+    public boolean exists() {
+        return Repository.of().contains(this);
     }
 
     // ------------------------------
     // Accesseurs & Mutateurs
     // ------------------------------
-    @Override
     public UUID getId() {
         return id;
     }
 
-    @Override
     public void setId(UUID id) {
         this.id = id;
     }

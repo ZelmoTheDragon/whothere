@@ -1,7 +1,7 @@
 package com.github.zelmothedragon.whothere.absence;
 
 import com.github.zelmothedragon.whothere.agent.Agent;
-import com.github.zelmothedragon.whothere.core.persistence.AbstractEntity;
+import com.github.zelmothedragon.whothere.common.persistence.AbstractModel;
 import java.time.LocalDateTime;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -28,7 +28,7 @@ import javax.validation.constraints.NotNull;
         )
 )
 @Access(AccessType.FIELD)
-public class Absence extends AbstractEntity {
+public class Absence extends AbstractModel {
 
     /**
      * Numéro de série.

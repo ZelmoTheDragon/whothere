@@ -2,7 +2,6 @@ package com.github.zelmothedragon.whothere;
 
 import com.github.zelmothedragon.whothere.agent.Agent;
 import com.github.zelmothedragon.whothere.agent.Organization;
-import com.github.zelmothedragon.whothere.core.persistence.Identifiable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -17,17 +16,17 @@ public enum DynamicEntity {
 
     private final String typeName;
 
-    private final Class<? extends Identifiable<?>> entityClass;
+    private final Class<?> entityClass;
 
     private final Function<String, Object> identifierConverter;
 
-    private final Supplier<Identifiable<?>> constructor;
+    private final Supplier<?> constructor;
     
     DynamicEntity(
             final String typeName,
-            final Class<? extends Identifiable<?>> entityClass,
+            final Class<?> entityClass,
             final Function<String, Object> identifierConverter,
-            final Supplier<Identifiable<?>> constructor) {
+            final Supplier<?> constructor) {
 
         this.typeName = typeName;
         this.entityClass = entityClass;
@@ -47,15 +46,15 @@ public enum DynamicEntity {
         return identifierConverter.apply(id);
     }
 
-    public Identifiable<?> newInstance() {
-        return constructor.get();
+    public <E> E newInstance() {
+        return (E) constructor.get();
     }
 
     public String getTypeName() {
         return typeName;
     }
 
-    public Class<? extends Identifiable<?>> getEntityClass() {
+    public Class<?> getEntityClass() {
         return entityClass;
     }
 

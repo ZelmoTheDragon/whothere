@@ -1,6 +1,6 @@
 package com.github.zelmothedragon.whothere;
 
-import com.github.zelmothedragon.whothere.core.faces.Page;
+import com.github.zelmothedragon.whothere.common.faces.Page;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;

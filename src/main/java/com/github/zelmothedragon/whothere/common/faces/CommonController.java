@@ -1,9 +1,8 @@
-package com.github.zelmothedragon.whothere.core.faces;
+package com.github.zelmothedragon.whothere.common.faces;
 
 import com.github.zelmothedragon.whothere.DynamicEntity;
 import com.github.zelmothedragon.whothere.DynamicView;
-import com.github.zelmothedragon.whothere.core.persistence.Identifiable;
-import com.github.zelmothedragon.whothere.core.service.CommonService;
+import com.github.zelmothedragon.whothere.common.persistence.Repository;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +10,7 @@ import java.util.Objects;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 
 /**
  * Contrôleur générique pour la recherche de données par mot clef.
@@ -19,14 +19,12 @@ import javax.inject.Named;
  */
 @Named
 @SessionScoped
+@Transactional
 public class CommonController implements Serializable {
 
-    /**
-     * Service métier générique.
-     */
     @Inject
-    CommonService service;
-
+    Repository repository;
+    
     /**
      * Type dynamique de l'entité métier.
      */
@@ -40,12 +38,12 @@ public class CommonController implements Serializable {
     /**
      * Liste des entités recherchées en fonction du mot clef.
      */
-    private List<? extends Identifiable<?>> entities;
+    private List<?> entities;
 
     /**
      * Entité en cours de création ou modification.
      */
-    private Identifiable<?> entity;
+    private Object entity;
 
     /**
      * Constructeur par défaut. Requis pour le fonctionnement des technologies
@@ -65,7 +63,7 @@ public class CommonController implements Serializable {
         } else {
             // Optimisation des requêtes.
             // Ne lancer la recherche que si le mot clef n'est pas vide.
-            this.entities = service.filter(entityType.getEntityClass(), keyword);
+            this.entities = repository.filter(entityType.getEntityClass(), keyword);
         }
     }
 
@@ -75,7 +73,7 @@ public class CommonController implements Serializable {
      * @return
      */
     public String save() {
-        this.service.save(entity);
+        this.repository.add(entity);
 
         return DynamicView
                 .fromEntityType(entityType)
@@ -90,7 +88,7 @@ public class CommonController implements Serializable {
      * @param entity Entité à modifier
      * @return
      */
-    public String edit(final Identifiable<?> entity) {
+    public String edit(final Object entity) {
         this.entity = entity;
 
         return DynamicView
@@ -119,8 +117,8 @@ public class CommonController implements Serializable {
      *
      * @param entity Entité à supprimer
      */
-    public void remove(final Identifiable<?> entity) {
-        this.service.remove(entity);
+    public void remove(final Object entity) {
+        this.repository.remove(entity);
         this.entities.remove(entity);
     }
 
@@ -128,7 +126,7 @@ public class CommonController implements Serializable {
      * Indiquer si le mot clef est vide.
      *
      * @return La valeur {@code true} si le mot clef est nul, vide ou ne
-     * comporte q'un seul caractère, sinon la valeur {@code false} est retournée
+     * comporte qu'un seul caractère, sinon la valeur {@code false} est retournée
      */
     public boolean isKeywordEmpty() {
         return Objects.isNull(keyword)
@@ -155,19 +153,19 @@ public class CommonController implements Serializable {
         this.keyword = keyword;
     }
 
-    public List<? extends Identifiable<?>> getEntities() {
+    public List<?> getEntities() {
         return entities;
     }
 
-    public void setEntities(List<? extends Identifiable<?>> entities) {
+    public void setEntities(List<?> entities) {
         this.entities = entities;
     }
 
-    public Identifiable<?> getEntity() {
+    public Object getEntity() {
         return entity;
     }
 
-    public void setEntity(Identifiable<?> entity) {
+    public void setEntity(Object entity) {
         this.entity = entity;
     }
 

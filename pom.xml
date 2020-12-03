@@ -6,6 +6,7 @@
     
     <modelVersion>4.0.0</modelVersion>
     
+    <name>whothere</name>
     <description>Who There</description>
     <inceptionYear>2020</inceptionYear>
     <url>https://github.com/ZelmoTheDragon/whothere</url>
@@ -52,10 +53,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         
-        <maven.compiler.target>11</maven.compiler.target>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.parameters>true</maven.compiler.parameters>
-        
+        <version.java>11</version.java>
         <quarkus.platform.version>1.9.0.Final</quarkus.platform.version>
         <hibernate-jpamodelgen.version>5.4.22.Final</hibernate-jpamodelgen.version>
         
@@ -202,6 +200,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
+                    <source>${version.java}</source>
+                    <target>${version.java}</target>
+                    <parameters>true</parameters>
                     <!-- JPA meta modèle -->
                     <annotationProcessorPaths>
                         <path>

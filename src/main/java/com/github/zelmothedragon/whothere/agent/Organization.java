@@ -1,6 +1,6 @@
 package com.github.zelmothedragon.whothere.agent;
 
-import com.github.zelmothedragon.whothere.core.persistence.AbstractEntity;
+import com.github.zelmothedragon.whothere.common.persistence.AbstractModel;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Basic;
@@ -23,7 +23,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "organization")
 @Access(AccessType.FIELD)
-public class Organization extends AbstractEntity {
+public class Organization extends AbstractModel {
 
     /**
      * Numéro de série.

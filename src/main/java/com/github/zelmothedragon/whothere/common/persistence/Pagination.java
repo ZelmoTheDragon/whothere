@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whothere.core.persistence;
+package com.github.zelmothedragon.whothere.common.persistence;
 
 import java.io.Serializable;
 import java.util.List;

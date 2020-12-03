@@ -1,6 +1,6 @@
 package com.github.zelmothedragon.whothere.security;
 
-import com.github.zelmothedragon.whothere.core.faces.Page;
+import com.github.zelmothedragon.whothere.common.faces.Page;
 import java.io.IOException;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;

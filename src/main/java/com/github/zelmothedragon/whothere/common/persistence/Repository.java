@@ -1,11 +1,13 @@
-package com.github.zelmothedragon.whothere.core.persistence;
+package com.github.zelmothedragon.whothere.common.persistence;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.spi.CDI;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
@@ -19,24 +21,41 @@ import javax.persistence.metamodel.SingularAttribute;
  * @author MOSELLE Maxime
  * @see Repository
  */
-public final class JPA {
+@ApplicationScoped
+public class Repository {
 
     /**
-     * Constructeur interne. Pas d'instanciation.
+     * Gestionnaire d'entité.
      */
-    private JPA() {
-        throw new UnsupportedOperationException("Instance not allowed");
+    @Inject
+    EntityManager em;
+
+    /**
+     * Constructeur par défaut. Requis pour le fonctionnement des technologies
+     * d'entreprise.
+     */
+    public Repository() {
+        // Ne pas appeler explicitement.
     }
 
     /**
-     * @see Repository#contains
+     * Obtenir une instance de travail de cette classe.
+     *
+     * @return Une instance de travail de cette classe
+     */
+    public static Repository of() {
+        return CDI.current().select(Repository.class).get();
+    }
+
+    /**
+     * Vérifier l'existence d'une entité.
+     *
      * @param entity Entité persistante
      * @return La valeur {@code true} si l'entité existe, sinon la valeur
      * {@code false} est retournée
      */
-    public static boolean contains(final Identifiable<?> entity) {
+    public boolean contains(final Object entity) {
         final boolean exists;
-        var em = CDI.current().select(EntityManager.class).get();
         var entityClass = entity.getClass();
         if (em.contains(entity)) {
             exists = true;
@@ -56,19 +75,19 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#contains
+     * Vérifier l'existence d'une entité en fonction de son identifiant unique.
+     *
      * @param entityClass Classe de l'entité persistante
      * @param id Identifiant unique
      * @return La valeur {@code true} si l'entité existe, sinon la valeur
      * {@code false} est retournée
      */
-    public static boolean contains(final Class<? extends Identifiable<?>> entityClass, final Object id) {
+    public boolean contains(final Class<?> entityClass, final Object id) {
         boolean contains;
         var option = get(entityClass, id);
         if (option.isPresent()) {
             contains = true;
         } else {
-            var em = CDI.current().select(EntityManager.class).get();
             var cb = em.getCriteriaBuilder();
             var q = cb.createQuery(Long.class);
             var root = q.from(entityClass);
@@ -90,32 +109,34 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#containsAll
+     * Vérifier l'existence d'une collection d'entités.
+     *
      * @param entities Collection d'entités persistantes
      * @return La valeur {@code true} si toute les entités de la collection
      * existe, sinon la valeur {@code false} est retournée
      */
-    public static boolean containsAll(final Collection<? extends Identifiable<?>> entities) {
-        return entities.stream().allMatch(JPA::contains);
+    public boolean containsAll(final Collection<?> entities) {
+        return entities.stream().allMatch(this::contains);
     }
 
     /**
-     * @see Repository#isEmpty
+     * Indiquer si aucune occurrence existe.
+     *
      * @param entityClass Classe de l'entité persistante
      * @return La valeur {@code true} si aucune occurrence existe, sinon la
      * valeur {@code false} est retournée
      */
-    public static boolean isEmpty(final Class<? extends Identifiable<?>> entityClass) {
+    public boolean isEmpty(final Class<?> entityClass) {
         return size(entityClass) == 0L;
     }
 
     /**
-     * @see Repository#size
+     * Obtenir le nombre d'occurrence enregistré.
+     *
      * @param entityClass Classe de l'entité persistante
      * @return Le nombre d'occurrence
      */
-    public static long size(final Class<? extends Identifiable<?>> entityClass) {
-        var em = CDI.current().select(EntityManager.class).get();
+    public long size(final Class<?> entityClass) {
         var cb = em.getCriteriaBuilder();
         var q = cb.createQuery(Long.class);
         var root = q.from(entityClass);
@@ -124,13 +145,14 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#add
-     * @param <E> Type d'entité persistante
+     * Ajouter une nouvelle entité.Si l'entité existe déjà, elle sera mise à
+     * jour.
+     *
+     * @param <E> Type de l'entité persistante
      * @param entity Entité persistante
-     * @return L'entité persisté
+     * @return L'entité enregistrée
      */
-    public static <E extends Identifiable<?>> E add(final E entity) {
-        var em = CDI.current().select(EntityManager.class).get();
+    public <E> E add(final E entity) {
         E managedEntity;
         if (contains(entity)) {
             managedEntity = em.merge(entity);
@@ -142,24 +164,26 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#addAll
-     * @param <E> Type d'entité persistante
+     * Ajouter une nouvelle collection d'entités.Si les entités existent déjà,
+     * il seront mise à jour.
+     *
+     * @param <E> Type de l'entité persistante
      * @param entities Collection d'entités persistantes
-     * @return Les entités enregistrées
+     * @return Une collection d'entités enregistrée
      */
-    public static <E extends Identifiable<?>> List<E> addAll(final Collection<E> entities) {
+    public <E> List<E> addAll(final Collection<E> entities) {
         return entities
                 .stream()
-                .map(JPA::add)
+                .map(this::add)
                 .collect(Collectors.toList());
     }
 
     /**
-     * @see Repository#remove
+     * Supprimer une entité.
+     *
      * @param entity Entité persistante
      */
-    public static void remove(final Identifiable<?> entity) {
-        var em = CDI.current().select(EntityManager.class).get();
+    public void remove(final Object entity) {
         var entityClass = entity.getClass();
         var id = getIdentifier(em, entity);
         var managedEntity = em.getReference(entityClass, id);
@@ -167,11 +191,12 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#remove
+     * Supprimer une entité en fonction de son identifiant.
+     *
      * @param entityClass Classe de l'entité persistante
-     * @param id Identifiant unique
+     * @param id Identifiant unique.
      */
-    public static void remove(final Class<? extends Identifiable<?>> entityClass, Object id) {
+    public void remove(final Class<?> entityClass, Object id) {
         var option = get(entityClass, id);
         if (option.isPresent()) {
             remove(option.get());
@@ -179,23 +204,24 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#removeAll
+     * Supprimer une collection d'entité.
+     *
      * @param entities Collection d'entités persistantes
      */
-    public static void removeAll(final Collection<? extends Identifiable<?>> entities) {
-        entities.forEach(JPA::remove);
+    public void removeAll(final Collection<?> entities) {
+        entities.forEach(this::remove);
     }
 
     /**
-     * @see Repository#get
-     * @param <E> Type d'entité persistante
+     * Rechercher une entité en fonction de son identifiant unique.
+     *
+     * @param <E> Type de l'entité persistante
      * @param entityClass Classe de l'entité persistante
      * @param id Clef primaire
      * @return Une option contenant ou non l'entité correspondante à
      * l'identifiant unique
      */
-    public static <E extends Identifiable<?>> Optional<E> get(final Class<E> entityClass, final Object id) {
-        var em = CDI.current().select(EntityManager.class).get();
+    public <E> Optional<E> get(final Class<E> entityClass, final Object id) {
         Optional<E> option;
         if (Objects.isNull(id)) {
             option = Optional.empty();
@@ -207,13 +233,13 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#get
-     * @param <E> Type d'entité persistante
+     * Rechercher toutes les entités enregistrés.
+     *
+     * @param <E> Type de l'entité persistante
      * @param entityClass Classe de l'entité persistante
-     * @return Une liste d'entités persistantes
+     * @return Une liste des entités persistantes
      */
-    public static <E extends Identifiable<?>> List<E> get(final Class<E> entityClass) {
-        var em = CDI.current().select(EntityManager.class).get();
+    public <E> List<E> get(final Class<E> entityClass) {
         var cb = em.getCriteriaBuilder();
         var q = cb.createQuery(entityClass);
         q.from(entityClass);
@@ -221,17 +247,15 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#get
-     * @param <E> Type d'entité persistante
+     * Rechercher des entités enregistrées avec un critère de pagination.
+     *
+     * @param <E> Type de l'entité persistante
      * @param entityClass Classe de l'entité persistante
-     * @param pagination Critère de filtrage pour la pagination
-     * @return Une liste d'entités persistantes
+     * @param pagination Critère de pagination
+     * @return Une liste des entités persistantes
      */
-    public static <E extends Identifiable<?>> List<E> get(
-            final Class<E> entityClass,
-            final Pagination pagination) {
+    public <E> List<E> filter(final Class<E> entityClass, final Pagination pagination) {
 
-        var em = CDI.current().select(EntityManager.class).get();
         var cb = em.getCriteriaBuilder();
         var q = cb.createQuery(entityClass);
         var root = q.from(entityClass);
@@ -297,15 +321,14 @@ public final class JPA {
     }
 
     /**
-     * @see Repository#get
-     * @param <E> Type d'entité persistante
+     * Rechercher des entités enregistrées en fonction d'un mot clef.
+     *
+     * @param <E> Type de l'entité persistante
      * @param entityClass Classe de l'entité persistante
      * @param keyword Mot clef pour la recherche
-     * @return Une liste d'entités persistantes
+     * @return Une liste des entités persistantes
      */
-    public static <E extends Identifiable<?>> List<E> get(
-            final Class<E> entityClass,
-            final String keyword) {
+    public <E> List<E> filter(final Class<E> entityClass, final String keyword) {
 
         var pagination = new Pagination(
                 keyword,
@@ -316,7 +339,7 @@ public final class JPA {
                 true
         );
 
-        return JPA.get(entityClass, pagination);
+        return Repository.this.filter(entityClass, pagination);
     }
 
     /**
@@ -326,7 +349,7 @@ public final class JPA {
      * @param entity Entité persistante
      * @return L'identifiant unique de l'entité
      */
-    private static Object getIdentifier(final EntityManager em, final Object entity) {
+    private Object getIdentifier(final EntityManager em, final Object entity) {
         return em
                 .getEntityManagerFactory()
                 .getPersistenceUnitUtil()
@@ -340,7 +363,7 @@ public final class JPA {
      * @param entity Entité persistante
      * @return Le nom de l'identifiant unique
      */
-    private static String getIdentifierName(final EntityManager em, final Object entity) {
+    private String getIdentifierName(final EntityManager em, final Object entity) {
         var entityClass = entity.getClass();
         var id = getIdentifier(em, entity);
         var idClass = id.getClass();

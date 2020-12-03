@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.whothere.core.util;
+package com.github.zelmothedragon.whothere.common.util;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
