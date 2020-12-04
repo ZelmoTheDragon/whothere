@@ -93,7 +93,7 @@
                 <version>${primefaces.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.webjars.npm</groupId>
+                <groupId>org.webjars.bowergithub.primefaces</groupId>
                 <artifactId>primeflex</artifactId>
                 <version>${primeflex.version}</version>
             </dependency>
@@ -138,11 +138,6 @@
         
         <!-- Web -->
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-webjars-locator</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>org.apache.myfaces.core.extensions.quarkus</groupId>
             <artifactId>myfaces-quarkus</artifactId>
             <scope>compile</scope>
@@ -153,7 +148,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.webjars.npm</groupId>
+            <groupId>org.webjars.bowergithub.primefaces</groupId>
             <artifactId>primeflex</artifactId>
             <scope>compile</scope>
         </dependency>

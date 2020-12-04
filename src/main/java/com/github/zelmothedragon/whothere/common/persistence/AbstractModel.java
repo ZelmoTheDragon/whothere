@@ -94,14 +94,28 @@ public abstract class AbstractModel implements Serializable {
     // ------------------------------
     // Persistance
     // ------------------------------
-    public <E> E save() {
-        return (E) Repository.of().add(this);
+    /**
+     * Sauvegarder l'instance courante.
+     *
+     * @return L'instance de cette classe synchronisée avec l'entrepôt.
+     */
+    public AbstractModel save() {
+        return Repository.of().add(this);
     }
 
+    /**
+     * Supprimer l'instance courante.
+     */
     public void remove() {
         Repository.of().remove(this);
     }
 
+    /**
+     * Vérifier si l'instance courante existe.
+     *
+     * @return La valeur {@code true} si l'entité existe, sinon la valeur
+     * {@code false} est retournée
+     */
     public boolean exists() {
         return Repository.of().contains(this);
     }
